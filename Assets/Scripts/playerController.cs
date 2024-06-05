@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static Health;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,11 +24,39 @@ public class PlayerController : MonoBehaviour
     public Health health;
     public int damageTakenOnCollision = 10;
 
+    private AudioSource sfxAudioSrc;
+    public AudioClip walkAudioClip;
+
+    [SerializeField] private Healthbar _healthbar;
+    private float _currentHealth;
+
+    private Sniper currentWeapon; // Assuming Sniper is the weapon script
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         cam = Camera.main;
+        sfxAudioSrc = GetComponent<AudioSource>();
+
+        _currentHealth = health.GetCurrentHealth();
+        Debug.Log("_currentHealth = " + _currentHealth);
+        _healthbar.UpdateHealthBar(health.maxHealth, _currentHealth);
+
+        //Subscribe to the health changed event
+        health.HealthChanged += OnHealthChanged;
+
+        currentWeapon = GetComponent<Sniper>(); // Assuming the Sniper script is on the same GameObject
+    }
+    private void OnDestroy()
+    {
+        // Unsubscribe from the health changed event to prevent memory leaks
+        health.HealthChanged -= OnHealthChanged;
+    }
+    private void OnHealthChanged(int currentHealth, int maxHealth)
+    {
+        _currentHealth = currentHealth;
+        _healthbar.UpdateHealthBar(maxHealth, currentHealth);
     }
 
     // Update is called once per frame
@@ -35,6 +65,15 @@ public class PlayerController : MonoBehaviour
         //Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if(Mathf.Abs(movement.x) > 0.0f || Mathf.Abs(movement.y) > 0.0f)
+        {
+            if(!sfxAudioSrc.isPlaying)
+            {
+                sfxAudioSrc.clip = walkAudioClip;
+                sfxAudioSrc.Play(); 
+            }
+        }
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
@@ -94,9 +133,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Player collided with an enemy!");
             health.TakeDamage(damageTakenOnCollision);
+            //_currentHealth = health.GetCurrentHealth(); // Update _currentHealth after taking damage
+            //_healthbar.UpdateHealthBar(health.maxHealth, _currentHealth);
+            Debug.Log("Player collided with an enemy!");
         }
     }
-
 }

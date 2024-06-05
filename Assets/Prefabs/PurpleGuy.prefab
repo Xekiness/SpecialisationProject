@@ -163,8 +163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sniperBulletPrefab: {fileID: 3187102747224441019, guid: 22930c4e66c9c8841be389b3e482e441, type: 3}
   sniperFirePoint: {fileID: 5141251714233013942}
-  sniperBulletSpeed: 15
-  maxAmmo: 10
+  sniperBulletSpeed: 20
+  maxAmmo: 25
   fireRate: 0.5
   currentAmmo: 0
   currentMagazineCount: 0
@@ -423,6 +423,7 @@ MonoBehaviour:
   animator: {fileID: 8498325526308107162}
   health: {fileID: 4272681229220475087}
   damageTakenOnCollision: 10
+  walkAudioClip: {fileID: 8300000, guid: 4f50fd39f9465dd4eaa402dfb9e14b71, type: 3}
 --- !u!61 &3696159024155842692
 BoxCollider2D:
   m_ObjectHideFlags: 0

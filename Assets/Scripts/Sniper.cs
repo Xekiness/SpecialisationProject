@@ -121,4 +121,13 @@ public class Sniper : Weapon
             Debug.Log("Current Ammo: " + currentAmmo + " / " + maxAmmo);
         }
     }
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public int GetMaxAmmo()
+    {
+        return maxAmmo;
+    }
 }

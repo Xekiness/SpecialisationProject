@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Health;
 
 public class SimpleEnemyAI : MonoBehaviour
 {
     public float speed = 2f;
-    public float meleeRange = 3.0f;
+    public float meleeRange = 1.5f;
     public float attackCooldown = 1f;
 
     private Transform player;
@@ -13,13 +14,30 @@ public class SimpleEnemyAI : MonoBehaviour
     private bool isAttacking = false;
     private float nextAttackTime = 0f;
 
-    public Health health;
     public int damageDealtOnCollision = 10;
+    public Health health;
+    [SerializeField] private Healthbar healthbar;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
+
+        // Subscribe to the health changed event
+        health.HealthChanged += OnHealthChanged;
+
+        // Initialize the health bar
+        OnHealthChanged(health.GetCurrentHealth(), health.maxHealth);
+    }
+    private void OnDestroy()
+    {
+        // Unsubscribe from the health changed event to prevent memory leaks
+        health.HealthChanged -= OnHealthChanged;
+    }
+
+    private void OnHealthChanged(int currentHealth, int maxHealth)
+    {
+        healthbar.UpdateHealthBar(maxHealth, currentHealth);
     }
 
     void Update()
@@ -82,13 +100,15 @@ public class SimpleEnemyAI : MonoBehaviour
         isAttacking = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Enemy collided with the player!");
-            // Handle enemy interaction with the player here
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        //Change this to Compar
+    //        // Assuming the enemy takes damage when colliding with the player
+    //        int damageTaken = 10; // Example damage value
+    //        health.TakeDamage(damageTaken);
+    //    }
+    //}
 
 }
