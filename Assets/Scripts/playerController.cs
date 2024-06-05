@@ -1,80 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class playerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float movementSpeed = 1f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
 
     private Rigidbody2D rb;
-    private Animator animator;
-    private SpriteRenderer sprite;
+    [SerializeField] private Animator animator;
+    private Camera cam;
 
-    private Vector2 lookDir;
-    private Vector2 moveDir;
-    private int lastDirection;
+    private bool isDashing = false;
+    private bool canDash = true;
 
-    void Start()
+    Vector2 movement;
+    Vector2 mousePos;
+
+    public Health health;
+    public int damageTakenOnCollision = 10;
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        cam = Camera.main;
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Input
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+
+        //Dash
+        if (Input.GetKeyDown(KeyCode.Space) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+
+        //Shoot
+        //if (Input.GetButtonDown("Fire1") && currentWeapon != null)
+        //{
+        //}
+    }
+
     private void FixedUpdate()
     {
-        /*Moving*/
-        moveDir.x = Input.GetAxis("Horizontal");
-        moveDir.y = Input.GetAxis("Vertical");
+        if (isDashing)
+        {
+            return;
+        }
 
-        // Update Animator parameter
-        UpdateAnimatorParameters(moveDir.x, moveDir.y);
+        // Movement
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
-        // Calculate movement direction
-        Vector2 moveDirection = new Vector2(moveDir.x, moveDir.y).normalized;
-
-        // Apply movement
-        rb.velocity = movementSpeed * Time.deltaTime * moveDirection;
-
+        // Rotate the gun towards the mouse
+        //RotateGunTowardsMouse();
     }
-        
-    void UpdateAnimatorParameters(float horizontalInput, float verticalInput)
+
+    private IEnumerator Dash()
     {
-        // Set Animator parameters
-        animator.SetFloat("Horizontal", horizontalInput);
-        animator.SetFloat("Vertical", verticalInput);
-        float magnitude = Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput);
-        
-        if(magnitude != 0)
+        isDashing = true;
+        canDash = false;
+
+        float startTime = Time.time;
+
+        while (Time.time < startTime + dashDuration)
         {
-            if(verticalInput >= 0.1f)
-            {
-                lastDirection = 1;
-                animator.Play("Girl_Walk_N");
-            }
-            else if(verticalInput <= 0.1f)
-            {
-                lastDirection = 0;
-                animator.Play("Girl_Walk_S");
-            }
+            rb.velocity = movement.normalized * dashSpeed;
+            yield return null;
         }
-        animator.SetFloat("Magnitude", Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        Debug.Log("Horizontal: " + horizontalInput + "Vertical: " + verticalInput + "Magnitude: " + magnitude);
+
+        // After dash ends, smoothly reset velocity
+        rb.velocity = Vector2.zero;
+
+        Debug.Log("I'm dashing");
+
+        isDashing = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Player collided with an enemy!");
+            health.TakeDamage(damageTakenOnCollision);
+        }
     }
 
-    private void UpdateSpriteDirection()
-    {
-        if (moveDir.x > 0.0f)
-        {
-            sprite.flipX = false;
-        }
-        else if(moveDir.x < 0.0f)
-        {
-            sprite.flipX= true;
-        }
-    }
 }
-
-
-

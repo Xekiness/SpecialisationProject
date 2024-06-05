@@ -1,0 +1,1548 @@
+fileFormatVersion: 2
+guid: 73ab3d7604b45ec41b544f527fdcb5cd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BOD-Idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e05fa93bb21cbf4695af2101afeee0e
+      internalID: 37897964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a2980394ace02c4d8596edec855ef1a
+      internalID: 1937520316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c747d5bfe753f14abbbe190598f36c9
+      internalID: 550871166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_3
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 444d6e9fefc46ef4792a7ee0bf009da6
+      internalID: 1158534378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_4
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0fb76fbcb0ed8b479564a9ec9178422
+      internalID: 2012607713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_5
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c65e64390084974ebf3f3d1f966c99e
+      internalID: 1093401252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_6
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 704a52e259c42204d9ebff954a3e33d1
+      internalID: 1709453899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Idle_7
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 651
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e7fd9b2af9f7654f93579e30b6daf32
+      internalID: 1028847577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f516e232500abb4ebf63fdb4b78e4f7
+      internalID: -168553083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e19bafad236491d469175d178d167de7
+      internalID: 1849964754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcb5e9cbec7c0a144ad6c66fe3d311cb
+      internalID: -680954537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_3
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3263be2661482f42959eb963cd0f3d3
+      internalID: 2102416115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_4
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b9a9a473095a9a4380c9bf71144694c
+      internalID: -1747068968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_5
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92fa0a70afa2c5e4f96d6fa833dc62a8
+      internalID: 313897151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_6
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 559
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173376721fefa3843ac39e6f4a0be48b
+      internalID: -2044582953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Walk_7
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 558
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8b0c300bbd3d5c479633d02a5c85316
+      internalID: 875355280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 465
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ad8d89bdc9340647ae81c55f60f56ae
+      internalID: 1002461710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 465
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acfc328d55f801d4aa09ea831188d411
+      internalID: 468233116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 465
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 199317385855cae4fbad8c3074f83b16
+      internalID: -310230564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_3
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 465
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80565ace1e20c1445a5792f404ffaaad
+      internalID: 2013357008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_4
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 466
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dcbfcd1cb4b6b8489e8451e0affe0e6
+      internalID: -718361859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_5
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 465
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12599f889c57b0b409493725716c57f6
+      internalID: -600994269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_6
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 465
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fbefb12175fd524d967a8de70cdb89d
+      internalID: 567415370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_7
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 466
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd68743d5751404c86f009a81da5916
+      internalID: -1475191985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Attack_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49a88466cc4b5b240a50e3017ce2b97f
+      internalID: -1034453585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Hurt_0
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e68f28bb8a310745b0f01e6d0d87ef3
+      internalID: -1914617320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Hurt_1
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15cfc8b3a027cb14d968430efdaa7e20
+      internalID: 1953830881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Hurt_2
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56a0c4108081df04cb3aa7b23c45d0cf
+      internalID: 2104772054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_0
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a198d1d5fc842b40a665212e2c4da23
+      internalID: -1514131986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_1
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 373
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6fa6c43819847c4f8ae42dba80668cb
+      internalID: 692793455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_2
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d055429d49216046b241902a5cc2559
+      internalID: 1137336372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_3
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 372
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5545ba67b37342c429a83a8b2c087f29
+      internalID: 1854799218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f5b4f509f3009f43b186877a552c4a7
+      internalID: 52710936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_5
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7fcd465d3893424fa32406c1e20fb71
+      internalID: 136564580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_6
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6f69daa0fd5ead4aa1f33b51dd9bb02
+      internalID: -1503815953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_7
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ceb7fdccd1226d4e8e81b5dee805e13
+      internalID: -833132140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_8
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b259bb2d7ef90644aaea9e88196f2b20
+      internalID: 1594970763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_9
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152910a357dd0c946b08f822b2a11fb5
+      internalID: -1799400883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Death_10
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da36f38dae76e554d8963986bbf7a572
+      internalID: -1138681735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_0
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 279
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9e0fe32396ccc64c952890bf6fbb905
+      internalID: 1980204018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9afb27f288f56a64aa42f270070be9a2
+      internalID: 46315591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aee43db02ea95c94380dd23343fd342a
+      internalID: 270080531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_3
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 197833708ce59694790ea00a06d852e3
+      internalID: 108313390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_4
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 786523df21ad64741917e195400d1888
+      internalID: -342645424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 188
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19322514d94bcb547823b70a0e53f0e0
+      internalID: 1868515707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_6
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b248a83408bc546b4eba432fd8bf7a
+      internalID: -1296321227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_7
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142dfb6c856d02e4fbe1153c8088afa9
+      internalID: 1159189214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD-Cast_8
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 186
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c18aec4c40598b48a8054cb1026da47
+      internalID: 273874763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 94
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eff203b2bb13a0943a2318a3a7216471
+      internalID: -1789575256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 345bad979b1bff44c865c5306db367fd
+      internalID: 392468756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8025cf406094ff945b093ce18fb308e0
+      internalID: 985031871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_3
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 075ee5b771109754ab3287ce443a9ab8
+      internalID: -1091243639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_4
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90821cc7ffe04d941b612eece358b9e6
+      internalID: -283286999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_5
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d6c490e499045e419de7db9a5507d8c
+      internalID: 550873275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_6
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e74e10d91d22a804e8405d74434464c4
+      internalID: -1523902667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_7
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 93
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc46bb196a55cfb44b862f645a8cf2b0
+      internalID: -1704612882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ad56dd6b064ab74db9ec1b356798268
+      internalID: 1356888207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_9
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a047abc5aa27a045b782603cd42282d
+      internalID: -1278992289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_10
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110ebe753d4e51647ba7d232e05d84b2
+      internalID: -532327165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_11
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 541389c014f567a4fa20ba868c633791
+      internalID: 105060459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_12
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a62cd6519bb1614590f9882645c95bd
+      internalID: -266460791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_13
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b30221fa12d5d04080fc5e80184e1ba
+      internalID: 1025298281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_14
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cefe1b651867fcd458713360a1251f97
+      internalID: -1686276938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOD_Spell_15
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 0
+        width: 140
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef196ce67a81eb4fac21f8ff3698fa2
+      internalID: -2008662340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BOD-Attack_0: 1002461710
+      BOD-Attack_1: 468233116
+      BOD-Attack_2: -310230564
+      BOD-Attack_3: 2013357008
+      BOD-Attack_4: -718361859
+      BOD-Attack_5: -600994269
+      BOD-Attack_6: 567415370
+      BOD-Attack_7: -1475191985
+      BOD-Attack_8: -1034453585
+      BOD-Cast_0: 1980204018
+      BOD-Cast_1: 46315591
+      BOD-Cast_2: 270080531
+      BOD-Cast_3: 108313390
+      BOD-Cast_4: -342645424
+      BOD-Cast_5: 1868515707
+      BOD-Cast_6: -1296321227
+      BOD-Cast_7: 1159189214
+      BOD-Cast_8: 273874763
+      BOD-Death_0: -1514131986
+      BOD-Death_1: 692793455
+      BOD-Death_10: -1138681735
+      BOD-Death_2: 1137336372
+      BOD-Death_3: 1854799218
+      BOD-Death_4: 52710936
+      BOD-Death_5: 136564580
+      BOD-Death_6: -1503815953
+      BOD-Death_7: -833132140
+      BOD-Death_8: 1594970763
+      BOD-Death_9: -1799400883
+      BOD-Hurt_0: -1914617320
+      BOD-Hurt_1: 1953830881
+      BOD-Hurt_2: 2104772054
+      BOD-Idle_0: 37897964
+      BOD-Idle_1: 1937520316
+      BOD-Idle_2: 550871166
+      BOD-Idle_3: 1158534378
+      BOD-Idle_4: 2012607713
+      BOD-Idle_5: 1093401252
+      BOD-Idle_6: 1709453899
+      BOD-Idle_7: 1028847577
+      BOD-Walk_0: -168553083
+      BOD-Walk_1: 1849964754
+      BOD-Walk_2: -680954537
+      BOD-Walk_3: 2102416115
+      BOD-Walk_4: -1747068968
+      BOD-Walk_5: 313897151
+      BOD-Walk_6: -2044582953
+      BOD-Walk_7: 875355280
+      BOD_Spell_0: -1789575256
+      BOD_Spell_1: 392468756
+      BOD_Spell_10: -532327165
+      BOD_Spell_11: 105060459
+      BOD_Spell_12: -266460791
+      BOD_Spell_13: 1025298281
+      BOD_Spell_14: -1686276938
+      BOD_Spell_15: -2008662340
+      BOD_Spell_2: 985031871
+      BOD_Spell_3: -1091243639
+      BOD_Spell_4: -283286999
+      BOD_Spell_5: 550873275
+      BOD_Spell_6: -1523902667
+      BOD_Spell_7: -1704612882
+      BOD_Spell_8: 1356888207
+      BOD_Spell_9: -1278992289
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
