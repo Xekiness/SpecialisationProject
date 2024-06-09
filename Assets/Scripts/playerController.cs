@@ -26,6 +26,13 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource sfxAudioSrc;
     public AudioClip walkAudioClip;
+    public AudioClip dashAudioClip;
+    
+
+    //TODO: Make this more modular when you add more weapons.
+    //public AudioClip shootAudioClip
+    //public AudioClip reloadAudioClip
+
 
     [SerializeField] private Healthbar _healthbar;
     private float _currentHealth;
@@ -111,6 +118,10 @@ public class PlayerController : MonoBehaviour
     {
         isDashing = true;
         canDash = false;
+
+        // Play dash sound
+        sfxAudioSrc.PlayOneShot(dashAudioClip);
+
 
         float startTime = Time.time;
 

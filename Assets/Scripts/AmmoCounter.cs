@@ -15,34 +15,26 @@ public class AmmoCounter : MonoBehaviour
 
         if (sniper == null)
         {
-            //Debug.LogError("Sniper script not assigned to AmmoCounter!");
             Debug.LogError("Sniper script not found in the scene!");
             return;
         }
-        else
-        {
-            // Update the ammo count UI initially
-            UpdateAmmoCount();
-        }
+
+        // Subscribe to the ammo change event
+        sniper.OnAmmoChanged.AddListener(UpdateAmmoCount);
+
+        // Update the ammo count UI initially
+        UpdateAmmoCount();
     }
 
     public void UpdateAmmoCount()
     {
         if (ammoText != null && sniper != null)
         {
-            ammoText.text = "Ammo: " + sniper.GetCurrentAmmo() + "/" + sniper.GetMaxAmmo();
+            ammoText.text = "Ammo: " + sniper.GetCurrentAmmo() + "/" + sniper.GetReserveAmmo();
         }
         else
         {
             Debug.LogWarning("AmmoText or Sniper reference is not assigned!");
         }
     }
-
-    //public void UpdateAmmoCount(int currentAmmo, int maxAmmo)
-    //{
-    //    if (ammoText != null)
-    //    {
-    //        ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
-    //    }
-    //}
 }

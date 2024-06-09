@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Sniper : Weapon
 {
@@ -10,7 +11,7 @@ public class Sniper : Weapon
     [SerializeField] private float sniperBulletSpeed = 15f;
     [SerializeField] private int maxAmmo = 20;
     [SerializeField] private float fireRate = 0.5f;
-    private float offsetAngle = -30f; 
+    [SerializeField] private float offsetAngle = -30f; // Adjust this value as needed
 
     Vector2 mousePos;
 
@@ -19,11 +20,21 @@ public class Sniper : Weapon
     [SerializeField] private int currentMagazineCount; // Current bullets in the magazine
     [SerializeField] private int magazineCapacity = 5; // Magazine capacity
 
+    public UnityEvent OnAmmoChanged; // Event for ammo change
+
     private void Start()
     {
-        //currentAmmo = maxAmmo;
         currentMagazineCount = magazineCapacity; // Initialize magazine count
-        currentAmmo = maxAmmo; // Initialize total ammo count
+        currentAmmo = maxAmmo; // Initialize total ammo
+
+        // Initialize the event if it's null
+        if (OnAmmoChanged == null)
+        {
+            OnAmmoChanged = new UnityEvent();
+        }
+
+        // Trigger initial ammo update
+        OnAmmoChanged.Invoke();
     }
 
     private void Update()
@@ -47,6 +58,7 @@ public class Sniper : Weapon
             Debug.Log("Weapon Sniper Script call reload");
         }
     }
+
     private void RotateGunTowardsMouse()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -67,8 +79,6 @@ public class Sniper : Weapon
             // Reset the local scale to its original state
             transform.localScale = Vector3.one;
         }
-
-        //sniperFirePoint.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     public override void Shoot(Vector2 targetPosition)
@@ -102,8 +112,12 @@ public class Sniper : Weapon
 
         Debug.Log("Current Ammo: " + currentMagazineCount + " / " + magazineCapacity);
 
+        // Trigger ammo change event
+        OnAmmoChanged.Invoke();
+
         Debug.DrawLine(sniperFirePoint.position, targetPosition, Color.red, 1f); // This will draw a red line for 1 second
     }
+
     public override void Reload()
     {
         if (currentMagazineCount < magazineCapacity) // Check if the magazine is not full
@@ -119,15 +133,23 @@ public class Sniper : Weapon
 
             Debug.Log("Reloading Sniper Rifle: " + currentMagazineCount + " / " + magazineCapacity);
             Debug.Log("Current Ammo: " + currentAmmo + " / " + maxAmmo);
+
+            // Trigger ammo change event
+            OnAmmoChanged.Invoke();
         }
     }
+
     public int GetCurrentAmmo()
     {
-        return currentAmmo;
+        return currentMagazineCount;
     }
 
     public int GetMaxAmmo()
     {
         return maxAmmo;
+    }
+    public int GetReserveAmmo()
+    {
+        return currentAmmo;
     }
 }

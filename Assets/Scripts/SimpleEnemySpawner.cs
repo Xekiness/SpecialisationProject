@@ -1,24 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SimpleEnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; //The enemy prefab to spawn
+    public GameObject enemyPrefab; // The enemy prefab to spawn
     public Transform[] spawnPoints; // Array of spawn points
     public float spawnInterval = 5f; // Time between spawns
-    public int maxEnemies = 10; // Maximum number of enemies to spawn
+    public int maxEnemiesPerWave = 10; // Maximum number of enemies to spawn per wave
+    public float waveInterval = 20f; // Time between waves
+    public int waveCount = 1; // Initial wave count
 
-    private int enemyCount = 0; // Counter for the number of spawned enemies
+    private int currentEnemyCount = 0; // Counter for the number of spawned enemies
+
+    // References to TextMeshProUGUI components
+    public TextMeshProUGUI waveCountText;
+    public TextMeshProUGUI enemyCountText;
 
     void Start()
     {
-        // Start the spawning coroutine
-        StartCoroutine(SpawnEnemies());
+        // Start the wave spawning coroutine
+        StartCoroutine(SpawnWaves());
+        UpdateWaveCountText();
     }
+
+    private IEnumerator SpawnWaves()
+    {
+        while (true) // Run indefinitely, or set a condition to stop if needed
+        {
+            Debug.Log("Wave " + waveCount + " starting...");
+
+            // Spawn enemies for the current wave
+            yield return StartCoroutine(SpawnEnemies());
+
+            // Wait for the interval between waves
+            yield return new WaitForSeconds(waveInterval);
+
+            // Increment wave count and difficulty if desired
+            waveCount++;
+            maxEnemiesPerWave += 5; // Example: Increase the number of enemies per wave
+
+            // Update the wave count text
+            UpdateWaveCountText();
+        }
+    }
+
     private IEnumerator SpawnEnemies()
     {
-        while (enemyCount < maxEnemies)
+        currentEnemyCount = 0;
+        UpdateEnemyCountText();
+
+        while (currentEnemyCount < maxEnemiesPerWave)
         {
             // Wait for the specified interval
             yield return new WaitForSeconds(spawnInterval);
@@ -30,7 +63,24 @@ public class SimpleEnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
             // Increase the enemy count
-            enemyCount++;
+            currentEnemyCount++;
+            UpdateEnemyCountText();
+        }
+    }
+
+    private void UpdateWaveCountText()
+    {
+        if (waveCountText != null)
+        {
+            waveCountText.text = "Wave: " + waveCount;
+        }
+    }
+
+    private void UpdateEnemyCountText()
+    {
+        if (enemyCountText != null)
+        {
+            enemyCountText.text = "Enemies: " + currentEnemyCount + " / " + maxEnemiesPerWave;
         }
     }
 }
