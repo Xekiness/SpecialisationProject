@@ -29,10 +29,23 @@ public class SimpleEnemySpawner : MonoBehaviour
     {
         while (true) // Run indefinitely, or set a condition to stop if needed
         {
+            // Check if the player is alive before starting a new wave
+            if (!GameManager.instance.IsPlayerAlive())
+            {
+                yield break; // Exit the coroutine if the player is not alive
+            }
+
+
             Debug.Log("Wave " + waveCount + " starting...");
 
             // Spawn enemies for the current wave
             yield return StartCoroutine(SpawnEnemies());
+
+            // Wait until all enemies from the current wave are defeated
+            while (currentEnemyCount > 0)
+            {
+                yield return null; // Wait for the next frame to check enemy count
+            }
 
             // Wait for the interval between waves
             yield return new WaitForSeconds(waveInterval);

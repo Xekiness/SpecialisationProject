@@ -42,6 +42,11 @@ public class SimpleEnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.IsPlayerAlive())
+        {
+            return; // Do nothing if the player is dead
+        }
+
         if (isAttacking)
         {
             return;
@@ -99,6 +104,21 @@ public class SimpleEnemyAI : MonoBehaviour
         animator.SetBool("isAttacking", false);
         isAttacking = false;
     }
+
+    // Method to handle player death
+    public void OnPlayerDeath()
+    {
+        // Stop enemy actions
+        player = null;
+        animator.SetBool("isAttacking", false);
+        isAttacking = false;
+
+        // Show death menu (implement your death menu logic here)
+        Debug.Log("Player is dead. Show death menu.");
+    }
+
+    //add a method to be called from your player health script when the player dies
+
 
     //private void OnCollisionEnter2D(Collision2D collision)
     //{

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Sniper : Weapon
+public class Sniper : RangedWeapon
 {
     [SerializeField] private GameObject sniperBulletPrefab;
     [SerializeField] private Transform sniperFirePoint;
@@ -20,18 +20,10 @@ public class Sniper : Weapon
     [SerializeField] private int currentMagazineCount; // Current bullets in the magazine
     [SerializeField] private int magazineCapacity = 5; // Magazine capacity
 
-    public UnityEvent OnAmmoChanged; // Event for ammo change
-
     private void Start()
     {
         currentMagazineCount = magazineCapacity; // Initialize magazine count
         currentAmmo = maxAmmo; // Initialize total ammo
-
-        // Initialize the event if it's null
-        if (OnAmmoChanged == null)
-        {
-            OnAmmoChanged = new UnityEvent();
-        }
 
         // Trigger initial ammo update
         OnAmmoChanged.Invoke();
@@ -47,7 +39,7 @@ public class Sniper : Weapon
         // Check for user input to fire
         if (Input.GetButtonDown("Fire1"))
         {
-            Shoot(mousePos);
+            Attack(mousePos);
             Debug.Log("Weapon Sniper Script call shoot");
         }
 
@@ -81,7 +73,7 @@ public class Sniper : Weapon
         }
     }
 
-    public override void Shoot(Vector2 targetPosition)
+    public override void Attack(Vector2 targetPosition)
     {
         if (Time.time < nextFireTime || currentMagazineCount <= 0)
             return;

@@ -27,17 +27,20 @@ public class PlayerController : MonoBehaviour
     private AudioSource sfxAudioSrc;
     public AudioClip walkAudioClip;
     public AudioClip dashAudioClip;
-    
+
 
     //TODO: Make this more modular when you add more weapons.
     //public AudioClip shootAudioClip
     //public AudioClip reloadAudioClip
 
-
     [SerializeField] private Healthbar _healthbar;
     private float _currentHealth;
 
-    private Sniper currentWeapon; // Assuming Sniper is the weapon script
+    //TODO: Make modular weapon system
+    [SerializeField] private WeaponManager weaponManager;
+
+
+    //private Sniper currentWeapon; // Assuming Sniper is the weapon script
 
     private void Start()
     {
@@ -53,7 +56,15 @@ public class PlayerController : MonoBehaviour
         //Subscribe to the health changed event
         health.HealthChanged += OnHealthChanged;
 
-        currentWeapon = GetComponent<Sniper>(); // Assuming the Sniper script is on the same GameObject
+
+        // Ensure weaponManager is assigned
+        if (weaponManager == null)
+        {
+            Debug.LogError("WeaponManager is not assigned to PlayerController.");
+            return;
+        }
+
+        //currentWeapon = GetComponent<Sniper>(); // Assuming the Sniper script is on the same GameObject
     }
     private void OnDestroy()
     {
@@ -98,6 +109,10 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetButtonDown("Fire1") && currentWeapon != null)
         //{
         //}
+
+        // Delegate weapon handling to WeaponManager
+        weaponManager.HandleWeaponSwitching();
+        weaponManager.HandleShooting();
     }
 
     private void FixedUpdate()

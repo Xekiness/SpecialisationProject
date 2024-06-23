@@ -35,6 +35,12 @@ public class Health : MonoBehaviour
     {
         // Handle death (destroy the GameObject, play an animation, etc.)
         Debug.Log(gameObject.name + " died.");
+
+        if (gameObject.CompareTag("Player"))
+        {
+            GameManager.instance.PlayerDied();
+        }
+
         gameObject.SetActive(false);
     }
 
