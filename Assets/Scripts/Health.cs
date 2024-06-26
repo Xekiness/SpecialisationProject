@@ -11,6 +11,10 @@ public class Health : MonoBehaviour
     public delegate void OnHealthChanged(int currentHealth, int maxHealth);
     public event OnHealthChanged HealthChanged;
 
+    // Delegate and event for death notification
+    public delegate void OnDeath();
+    public event OnDeath OnDeathEvent;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -26,13 +30,19 @@ public class Health : MonoBehaviour
             currentHealth = 0;
             Die();
         }
-        // Notify subscribers about the health change
-        HealthChanged?.Invoke(currentHealth, maxHealth);
+        else
+        {
+            // Notify subscribers about the health change
+            HealthChanged?.Invoke(currentHealth, maxHealth);
+        }
         Debug.Log(gameObject.name + " HP after taking dmg: " + currentHealth);
     }
 
     void Die()
     {
+        // Notify subscribers about the death
+        OnDeathEvent?.Invoke();
+
         // Handle death (destroy the GameObject, play an animation, etc.)
         Debug.Log(gameObject.name + " died.");
 
@@ -41,6 +51,15 @@ public class Health : MonoBehaviour
             GameManager.instance.PlayerDied();
         }
 
+        //gameObject.SetActive(false);
+
+        // Deactivate the GameObject after a delay
+        StartCoroutine(DeactivateAfterDelay(4f)); 
+    }
+
+    IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         gameObject.SetActive(false);
     }
 

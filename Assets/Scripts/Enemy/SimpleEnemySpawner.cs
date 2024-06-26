@@ -32,9 +32,9 @@ public class SimpleEnemySpawner : MonoBehaviour
             // Check if the player is alive before starting a new wave
             if (!GameManager.instance.IsPlayerAlive())
             {
+                Debug.Log("Player is not alive. Exiting SpawnWaves coroutine.");
                 yield break; // Exit the coroutine if the player is not alive
             }
-
 
             Debug.Log("Wave " + waveCount + " starting...");
 
@@ -44,10 +44,12 @@ public class SimpleEnemySpawner : MonoBehaviour
             // Wait until all enemies from the current wave are defeated
             while (currentEnemyCount > 0)
             {
+                Debug.Log("Waiting for enemies to be defeated. Current enemy count: " + currentEnemyCount);
                 yield return null; // Wait for the next frame to check enemy count
             }
 
             // Wait for the interval between waves
+            Debug.Log("Wave interval. Waiting for " + waveInterval + " seconds.");
             yield return new WaitForSeconds(waveInterval);
 
             // Increment wave count and difficulty if desired
@@ -75,10 +77,23 @@ public class SimpleEnemySpawner : MonoBehaviour
             // Instantiate the enemy at the chosen spawn point
             Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
+            //// Initialize the enemy with a reference to this spawner
+            //SimpleEnemyAI enemyScript = enemy.GetComponent<SimpleEnemyAI>();
+            //if (enemyScript != null)
+            //{
+            //    enemyScript.Initialize(this);
+            //}
+
             // Increase the enemy count
             currentEnemyCount++;
             UpdateEnemyCountText();
         }
+    }
+
+    public void DecreaseEnemyCount()
+    {
+        currentEnemyCount--;
+        UpdateEnemyCountText();
     }
 
     private void UpdateWaveCountText()

@@ -147,12 +147,24 @@ public class AmmoCounter : MonoBehaviour
     {
         if (ammoText != null && currentWeapon != null)
         {
-            ammoText.text = "Ammo: " + currentWeapon.GetCurrentAmmo() + "/" + currentWeapon.GetReserveAmmo();
+            int currentAmmo = currentWeapon.GetCurrentAmmo();
+            int reserveAmmo = currentWeapon.GetReserveAmmo();
+            ammoText.text = "Ammo: " + currentAmmo + "/" + reserveAmmo;
+            Debug.Log("UpdateAmmoCount called: " + currentAmmo + " / " + reserveAmmo);
         }
         else
         {
             ammoText.text = "Ammo: --/--";
             Debug.LogWarning("AmmoText or Weapon reference is not assigned!");
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            UpdateAmmoCount();
+            Debug.Log("AmmoCount called");
         }
     }
 }

@@ -28,19 +28,11 @@ public class PlayerController : MonoBehaviour
     public AudioClip walkAudioClip;
     public AudioClip dashAudioClip;
 
-
-    //TODO: Make this more modular when you add more weapons.
-    //public AudioClip shootAudioClip
-    //public AudioClip reloadAudioClip
-
     [SerializeField] private Healthbar _healthbar;
     private float _currentHealth;
 
     //TODO: Make modular weapon system
     [SerializeField] private WeaponManager weaponManager;
-
-
-    //private Sniper currentWeapon; // Assuming Sniper is the weapon script
 
     private void Start()
     {
@@ -75,6 +67,17 @@ public class PlayerController : MonoBehaviour
     {
         _currentHealth = currentHealth;
         _healthbar.UpdateHealthBar(maxHealth, currentHealth);
+
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        animator.SetTrigger("isDead");
+        //TODO: Trigger death menu
     }
 
     // Update is called once per frame
@@ -104,11 +107,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-
-        //Shoot
-        //if (Input.GetButtonDown("Fire1") && currentWeapon != null)
-        //{
-        //}
 
         // Delegate weapon handling to WeaponManager
         weaponManager.HandleWeaponSwitching();
@@ -160,9 +158,17 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             health.TakeDamage(damageTakenOnCollision);
-            //_currentHealth = health.GetCurrentHealth(); // Update _currentHealth after taking damage
-            //_healthbar.UpdateHealthBar(health.maxHealth, _currentHealth);
+            StartCoroutine(TriggerHurtAnimation());
+
+
             Debug.Log("Player collided with an enemy!");
         }
+    }
+
+    private IEnumerator TriggerHurtAnimation()
+    {
+        animator.SetBool("isHurt", true);
+        yield return new WaitForSeconds(0.25f);
+        animator.SetBool("isHurt", false);
     }
 }

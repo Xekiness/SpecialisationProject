@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: b7c46a49d878da346b6e5904d6917520, type: 2}
+  OnAmmoChanged:
+    m_PersistentCalls:
+      m_Calls: []
   firePoint: {fileID: 6588451969791686926}
   shotgunBulletPrefab: {fileID: 3187102747224441019, guid: 22930c4e66c9c8841be389b3e482e441, type: 3}
   shotgunFirePoint: {fileID: 6588451969791686926}
@@ -139,6 +142,7 @@ MonoBehaviour:
   maxAmmo: 25
   fireRate: 1
   magazineCapacity: 5
-  OnAmmoChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  fireSound: {fileID: 8300000, guid: 38de0023e19dc1b468d9ffbb11368349, type: 3}
+  reloadSound: {fileID: 0}
+  dryFireSound: {fileID: 8300000, guid: a93fe90a21000c141b1d2de745a05c5a, type: 3}
+  shotgunPumpSound: {fileID: 8300000, guid: 23be9afe5b0fd0e4eb9c8978f54ac380, type: 3}

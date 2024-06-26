@@ -11,9 +11,14 @@ public class RangedWeapon : Weapon
         if (Time.time >= nextAttackTime)
         {
             // Perform attack
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 aim = Camera.main.ScreenToWorldPoint(mousePos); 
             Vector2 direction = (targetPosition - (Vector2)firePoint.position).normalized;
-            GameObject bullet = Instantiate(weaponData.bulletPrefab, firePoint.position, firePoint.rotation);
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * weaponData.bulletSpeed;
+            //GameObject bullet = Instantiate(weaponData.bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(weaponData.bulletPrefab, firePoint.position, Quaternion.identity);
+            //bullet.GetComponent<Rigidbody2D>().velocity = direction * weaponData.bulletSpeed;
+            bullet.GetComponent<Rigidbody2D>().velocity = aim * weaponData.bulletSpeed;
+
 
             Destroy(bullet, 2f);
 

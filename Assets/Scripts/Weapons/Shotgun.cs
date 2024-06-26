@@ -7,14 +7,14 @@ public class Shotgun : RangedWeapon
 {
     [SerializeField] private GameObject shotgunBulletPrefab;
     [SerializeField] private Transform shotgunFirePoint;
-
+    
     [SerializeField] private float shotgunBulletSpeed = 10f;
     [SerializeField] private int pelletsPerShot = 5;
-    [SerializeField] private float spreadAngle = 30f;
+    [SerializeField] private float bulletSpreadAngle = 30f;
     [SerializeField] private int maxAmmo = 25;
-
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private int magazineCapacity = 5;
+
 
     private float nextFireTime = 0f;
     private int currentAmmo;
@@ -44,7 +44,7 @@ public class Shotgun : RangedWeapon
 
         audioSource = GetComponent<AudioSource>();
 
-        OnAmmoChanged.Invoke();
+        OnAmmoChanged.Invoke(); 
     }
     private void OnEnable()
     {
@@ -89,7 +89,6 @@ public class Shotgun : RangedWeapon
             transform.localScale = new Vector3(0.4f,0.4f,0.4f);
         }
     }
-
     public override void Attack(Vector2 targetPosition)
     {
         if (Time.time < nextFireTime || currentMagazineCount <= 0)
@@ -128,7 +127,7 @@ public class Shotgun : RangedWeapon
 
     private Vector2 GetRandomDirection()
     {
-        float angle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+        float angle = Random.Range(-bulletSpreadAngle / 2, bulletSpreadAngle / 2);
         return Quaternion.Euler(0, 0, angle) * shotgunFirePoint.right;
     }
 
@@ -137,16 +136,6 @@ public class Shotgun : RangedWeapon
         if (currentMagazineCount < magazineCapacity && currentAmmo > 0)
         {
             StartCoroutine(ReloadSequence());
-
-            ////Play reload sound
-            //if (reloadSound != null)
-            //{
-            //    audioSource.PlayOneShot(reloadSound);
-            //}
-            //int availableAmmo = Mathf.Min(magazineCapacity - currentMagazineCount, currentAmmo);
-            //currentMagazineCount += availableAmmo;
-            //currentAmmo -= availableAmmo;
-            //OnAmmoChanged.Invoke();
         }
     }
     private IEnumerator ReloadSequence()
@@ -170,7 +159,7 @@ public class Shotgun : RangedWeapon
         int availableAmmo = Mathf.Min(magazineCapacity - currentMagazineCount, currentAmmo);
         currentMagazineCount += availableAmmo;
         currentAmmo -= availableAmmo;
-        OnAmmoChanged.Invoke();
+        OnAmmoChanged.Invoke(); 
     }
 
     public int GetCurrentAmmo()

@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.up * speed * Time.deltaTime); // Move bullet upwards
+        //transform.Translate(Vector2.up * speed * Time.deltaTime); // Move bullet upwards
 
         // Count down the timer and deactivate the bullet if it exceeds lifeTime
         lifeTimer -= Time.deltaTime;

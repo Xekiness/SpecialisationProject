@@ -11,7 +11,6 @@ public class Sniper : RangedWeapon
     [SerializeField] private float sniperBulletSpeed = 15f;
     [SerializeField] private int maxAmmo = 20;
     [SerializeField] private float fireRate = 0.5f;
-    [SerializeField] private float offsetAngle = -30f; // Adjust this value as needed
 
     Vector2 mousePos;
 
@@ -20,13 +19,41 @@ public class Sniper : RangedWeapon
     [SerializeField] private int currentMagazineCount; // Current bullets in the magazine
     [SerializeField] private int magazineCapacity = 5; // Magazine capacity
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip dryFireSound;
+    [SerializeField] private AudioClip sniperEquipSound;
+
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        // Initialize audio source in Awake
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component missing on Sniper object.");
+        }
+    }
     private void Start()
     {
         currentMagazineCount = magazineCapacity; // Initialize magazine count
         currentAmmo = maxAmmo; // Initialize total ammo
 
+        audioSource = GetComponent<AudioSource>();
+
         // Trigger initial ammo update
         OnAmmoChanged.Invoke();
+    }
+    private void OnEnable()
+    {
+        // Play shotgun pump sound when the weapon is enabled 
+        if (audioSource != null && sniperEquipSound != null)
+        {
+            audioSource.PlayOneShot(sniperEquipSound);
+        }
     }
 
     private void Update()
@@ -78,14 +105,27 @@ public class Sniper : RangedWeapon
         if (Time.time < nextFireTime || currentMagazineCount <= 0)
             return;
 
+        if(currentMagazineCount <= 0)
+        {
+            //Play dry fire sound
+            if(audioSource != null && dryFireSound != null)
+            {
+                audioSource.PlayOneShot(dryFireSound);
+            }
+            return;
+        }
+
         // Update next fire time
         nextFireTime = Time.time + 1f / fireRate;
 
+        //Play fire sound
+        if (audioSource != null && fireSound != null)
+        {
+            audioSource.PlayOneShot(fireSound);
+        }
+
         // Calculate the direction from the fire point to the target position
         Vector2 direction = (targetPosition - (Vector2)sniperFirePoint.position).normalized;
-
-        // Add an offset to the direction calculation
-        direction = Quaternion.Euler(0, 0, offsetAngle) * direction;
 
         // Instantiate the bullet at the fire point
         GameObject bullet = Instantiate(sniperBulletPrefab, sniperFirePoint.position, sniperFirePoint.rotation);
@@ -114,6 +154,12 @@ public class Sniper : RangedWeapon
     {
         if (currentMagazineCount < magazineCapacity) // Check if the magazine is not full
         {
+            // Play reload sound
+            if (audioSource != null && reloadSound != null)
+            {
+                audioSource.PlayOneShot(reloadSound);
+            }
+
             // Calculate the available ammo that can be refilled into the magazine
             int availableAmmo = Mathf.Min(magazineCapacity - currentMagazineCount, currentAmmo);
 
