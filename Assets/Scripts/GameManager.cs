@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     private bool isPlayerAlive = true;
     //private bool isGamePaused = false;
+    public int totalMoney = 0;
+    public int totalExperience = 0;
+    public int totalFragments = 0;
 
     private void Awake()
     {
@@ -32,6 +35,22 @@ public class GameManager : MonoBehaviour
         isPlayerAlive = false;
         // Show death menu
         //FindObjectOfType<DeathMenu>().ShowDeathMenu();
+    }
+
+    public void AddMoney(int amount)
+    {
+        totalMoney += amount;
+        Debug.Log("Money added: " + amount);
+    }
+    public void AddExperience(int amount)
+    {
+        totalExperience += amount;
+        Debug.Log("Experience added: " + amount);
+    }
+    public void AddFragments(int amount)
+    {
+        totalFragments += amount;
+        Debug.Log("Fragments added: " + amount);
     }
     public void Retry()
     {

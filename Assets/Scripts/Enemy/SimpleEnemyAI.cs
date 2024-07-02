@@ -19,11 +19,21 @@ public class SimpleEnemyAI : MonoBehaviour
     [SerializeField] private Healthbar healthbar;
 
     private SimpleEnemySpawner spawner; // Reference to the spawner
+    public GameObject moneyPrefab;
+    public GameObject experiencePrefab;
+    public GameObject fragmentPrefab;
+    public int moneyDrop = 10;
+    public int experienceDrop = 5;
+    public int fragmentDrop = 1;
+
+    private bool isDying = false;
+    private Collider2D enemyCollider;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
+        enemyCollider = GetComponent<Collider2D>(); 
 
         if (health != null)
         {
@@ -142,18 +152,49 @@ public class SimpleEnemyAI : MonoBehaviour
 
     private void OnDeath()
     {
-        //Disable enemy AI on death
+        if (isDying) return;
+
+        isDying = true; // Set the flag to true
+
+        //Disable enemy AI and collider on death
         enabled = false;
         isAttacking = false;
         animator.SetTrigger("isDead");
 
+        //Disable the collider
+        if (enemyCollider != null)
+        {
+            enemyCollider.enabled = false;
+        }
+ 
         // Decrease the enemy count in the spawner
         if (spawner != null)
         {
             spawner.DecreaseEnemyCount();
         }
 
+        // Always drop experience
+        InstantiatePickup(experiencePrefab, experienceDrop);
+
+        // 50% Chance to drop money
+        if (Random.value <= 0.5f)
+        {
+            InstantiatePickup(moneyPrefab, moneyDrop);
+        }
+
+        // 10% Chance to drop fragment
+        if (Random.value <= 0.1f)
+        {
+            InstantiatePickup(fragmentPrefab, fragmentDrop);
+        }
+
         Destroy(gameObject, 2f); // Adjust the delay based on your death animation length
+    }
+    private void InstantiatePickup(GameObject prefab, int value)
+    {
+        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+        GameObject pickup = Instantiate(prefab, transform.position + offset, Quaternion.identity);
+        pickup.GetComponent<PickUp>().value = value;
     }
 
     // Method to handle player death
@@ -167,19 +208,4 @@ public class SimpleEnemyAI : MonoBehaviour
         // Show death menu (implement your death menu logic here)
         Debug.Log("Player is dead. Show death menu.");
     }
-
-    //add a method to be called from your player health script when the player dies
-
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player"))
-    //    {
-    //        //Change this to Compar
-    //        // Assuming the enemy takes damage when colliding with the player
-    //        int damageTaken = 10; // Example damage value
-    //        health.TakeDamage(damageTaken);
-    //    }
-    //}
-
 }

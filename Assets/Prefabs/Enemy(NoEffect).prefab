@@ -215,6 +215,12 @@ MonoBehaviour:
   damageDealtOnCollision: 10
   health: {fileID: 5263165587804417814}
   healthbar: {fileID: 1610191875797094867}
+  moneyPrefab: {fileID: 8400648145761221639, guid: f7a2e38c43548aa41a51babbf421ffc8, type: 3}
+  experiencePrefab: {fileID: 5714495723709279882, guid: 189c6d4489f56ee4cb4af4ced1c4a4a7, type: 3}
+  fragmentPrefab: {fileID: 1226908572359189670, guid: da0cc358ba949df42bf17b2db5f3683b, type: 3}
+  moneyDrop: 10
+  experienceDrop: 5
+  fragmentDrop: 5
 --- !u!1001 &8611392861361588397
 PrefabInstance:
   m_ObjectHideFlags: 0
