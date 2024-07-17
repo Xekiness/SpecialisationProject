@@ -44,6 +44,9 @@ public class Shotgun : RangedWeapon
 
         audioSource = GetComponent<AudioSource>();
 
+        Debug.Log("Shotgun Start - Current Magazine: " + currentMagazineCount + " / " + magazineCapacity);
+        Debug.Log("Shotgun Start - Current Ammo: " + currentAmmo + " / " + maxAmmo);
+
         OnAmmoChanged.Invoke(); 
     }
     private void OnEnable()
@@ -57,6 +60,9 @@ public class Shotgun : RangedWeapon
 
     private void Update()
     {
+        if (GameManager.instance.IsGamePaused())
+            return;
+
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RotateTowardsMouse(mousePosition);
 
@@ -164,6 +170,7 @@ public class Shotgun : RangedWeapon
 
     public int GetCurrentAmmo()
     {
+        Debug.Log("Sniper GetCurrentAmmo: " + currentMagazineCount);
         return currentMagazineCount;
     }
 
@@ -174,6 +181,7 @@ public class Shotgun : RangedWeapon
 
     public int GetReserveAmmo()
     {
+        Debug.Log("Sniper GetReserveAmmo: " + currentAmmo);
         return currentAmmo;
     }
 }

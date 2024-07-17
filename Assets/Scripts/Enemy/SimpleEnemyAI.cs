@@ -5,20 +5,26 @@ using static Health;
 
 public class SimpleEnemyAI : MonoBehaviour
 {
-    public float speed = 2f;
-    public float meleeRange = 1.5f;
-    public float attackCooldown = 1f;
-
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float meleeRange = 1.75f;
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private int enemyDamage = 10;
     private Transform player;
     private Animator animator;
     private bool isAttacking = false;
     private float nextAttackTime = 0f;
-
-    public int damageDealtOnCollision = 10;
     public Health health;
     [SerializeField] private Healthbar healthbar;
 
-    private SimpleEnemySpawner spawner; // Reference to the spawner
+    [Header("Audio")]
+    private AudioSource sfxAudioSrc;
+    public AudioClip enemydeathClip;
+    public AudioClip[] hurtSoundsClips;
+    private int currentHurtSoundIndex = 0;
+    private bool canPlayHurtSound = true;
+    private float hurtSoundCooldown = 1f;
+
+    [Header("ItemsDrop")]
     public GameObject moneyPrefab;
     public GameObject experiencePrefab;
     public GameObject fragmentPrefab;
@@ -27,13 +33,16 @@ public class SimpleEnemyAI : MonoBehaviour
     public int fragmentDrop = 1;
 
     private bool isDying = false;
+    private SimpleEnemySpawner spawner; // Reference to the spawner
     private Collider2D enemyCollider;
+    private PlayerController playerController;
 
-    void Start()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
         enemyCollider = GetComponent<Collider2D>(); 
+        sfxAudioSrc = GetComponent<AudioSource>();
 
         if (health != null)
         {
@@ -69,8 +78,7 @@ public class SimpleEnemyAI : MonoBehaviour
 
         if (currentHealth < maxHealth && currentHealth > 0)
         {
-            //animator.SetTrigger("isHurt");
-            StartCoroutine(TriggerHurtAnimation());
+            PlayHurtEffects();
         }
     }
     void Update()
@@ -132,7 +140,6 @@ public class SimpleEnemyAI : MonoBehaviour
     {
         isAttacking = true;
         animator.SetBool("isAttacking", true);
-        Debug.Log("Enemy starts attacking");
 
         // Wait for the attack animation to finish
         yield return new WaitForSeconds(0.5f); // Adjust this based on your attack animation length
@@ -140,16 +147,40 @@ public class SimpleEnemyAI : MonoBehaviour
         // Perform the actual attack (e.g., deal damage to player if in range)
         if (Vector2.Distance(transform.position, player.position) <= meleeRange)
         {
-            // Add your damage dealing code here
-            player.GetComponent<Health>().TakeDamage(damageDealtOnCollision);
-            Debug.Log("Enemy attacks player");
+            player.GetComponent<Health>().TakeDamage(enemyDamage);
+            playerController?.PlayHurtEffects();
         }
 
         animator.SetBool("isAttacking", false);
         isAttacking = false;
-        Debug.Log("Enemy finishes attacking");
+        //Debug.Log("Enemy finishes attacking");
     }
-
+    private void PlayHurtEffects()
+    {
+        if(canPlayHurtSound)
+        {
+            PlayHurtSound();
+            StartCoroutine(HurtSoundCooldown());
+        }
+        StartCoroutine(TriggerHurtAnimation()); 
+    }
+    private void PlayHurtSound()
+    {
+        if (hurtSoundsClips.Length == 0)
+        {
+            return; // No sounds to play
+        }
+        //Play current hurt sound
+        sfxAudioSrc.PlayOneShot(hurtSoundsClips[currentHurtSoundIndex]);
+        //Update index to next hurt sound, wrapping around if necessary
+        currentHurtSoundIndex = (currentHurtSoundIndex + 1) % hurtSoundsClips.Length;
+    }
+    private IEnumerator HurtSoundCooldown()
+    {
+        canPlayHurtSound = false;
+        yield return new WaitForSeconds(hurtSoundCooldown);
+        canPlayHurtSound = true;
+    }
     private void OnDeath()
     {
         if (isDying) return;
@@ -172,21 +203,19 @@ public class SimpleEnemyAI : MonoBehaviour
         {
             spawner.DecreaseEnemyCount();
         }
+        GameManager.instance.EnemyKilled();
 
         // Always drop experience
         InstantiatePickup(experiencePrefab, experienceDrop);
 
         // 50% Chance to drop money
         if (Random.value <= 0.5f)
-        {
             InstantiatePickup(moneyPrefab, moneyDrop);
-        }
-
+        
         // 10% Chance to drop fragment
         if (Random.value <= 0.1f)
-        {
             InstantiatePickup(fragmentPrefab, fragmentDrop);
-        }
+        
 
         Destroy(gameObject, 2f); // Adjust the delay based on your death animation length
     }
@@ -196,6 +225,10 @@ public class SimpleEnemyAI : MonoBehaviour
         GameObject pickup = Instantiate(prefab, transform.position + offset, Quaternion.identity);
         pickup.GetComponent<PickUp>().value = value;
     }
+    public void Initialize(SimpleEnemySpawner spawner)
+    {
+        this.spawner = spawner;
+    }
 
     // Method to handle player death
     public void OnPlayerDeath()
@@ -204,8 +237,5 @@ public class SimpleEnemyAI : MonoBehaviour
         player = null;
         animator.SetBool("isAttacking", false);
         isAttacking = false;
-
-        // Show death menu (implement your death menu logic here)
-        Debug.Log("Player is dead. Show death menu.");
     }
 }

@@ -7,7 +7,6 @@ public class Sniper : RangedWeapon
 {
     [SerializeField] private GameObject sniperBulletPrefab;
     [SerializeField] private Transform sniperFirePoint;
-
     [SerializeField] private float sniperBulletSpeed = 15f;
     [SerializeField] private int maxAmmo = 20;
     [SerializeField] private float fireRate = 0.5f;
@@ -44,6 +43,9 @@ public class Sniper : RangedWeapon
 
         audioSource = GetComponent<AudioSource>();
 
+        Debug.Log("Sniper Start - Current Magazine: " + currentMagazineCount + " / " + magazineCapacity);
+        Debug.Log("Sniper Start - Current Ammo: " + currentAmmo + " / " + maxAmmo);
+
         // Trigger initial ammo update
         OnAmmoChanged.Invoke();
     }
@@ -58,6 +60,9 @@ public class Sniper : RangedWeapon
 
     private void Update()
     {
+        if (GameManager.instance.IsGamePaused())
+            return;
+
         RotateGunTowardsMouse();
 
         // Update mouse position
@@ -105,6 +110,7 @@ public class Sniper : RangedWeapon
         if (Time.time < nextFireTime || currentMagazineCount <= 0)
             return;
 
+
         if(currentMagazineCount <= 0)
         {
             //Play dry fire sound
@@ -142,7 +148,7 @@ public class Sniper : RangedWeapon
         // Decrease ammo count
         currentMagazineCount--;
 
-        Debug.Log("Current Ammo: " + currentMagazineCount + " / " + magazineCapacity);
+        Debug.Log("Sniper Attack - Current Ammo: " + currentMagazineCount + " / " + magazineCapacity);
 
         // Trigger ammo change event
         OnAmmoChanged.Invoke();

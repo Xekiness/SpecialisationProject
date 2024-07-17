@@ -22,17 +22,29 @@ public class PlayerController : MonoBehaviour
     Vector2 mousePos;
 
     public Health health;
-    public int damageTakenOnCollision = 10;
 
+    [Header("Audio")]
     private AudioSource sfxAudioSrc;
     public AudioClip walkAudioClip;
     public AudioClip dashAudioClip;
+    public AudioClip deathSoundClip;
+    public AudioClip[] hurtSoundsClip;
+    private int currentHurtSoundIndex = 0;
+    private bool canPlayHurtSound = true;
+    private float hurtSoundCooldown = 1f;
 
     [SerializeField] private Healthbar _healthbar;
     private float _currentHealth;
 
     //TODO: Make modular weapon system
     [SerializeField] private WeaponManager weaponManager;
+
+    private PlayerHud playerHud;
+    private PlayerData playerData;
+    //private LevelingSystem levelingSystem;
+
+    //Temporary, redo the deathmenu later
+    //public GameObject deathMenuUI;
 
     private void Start()
     {
@@ -42,12 +54,17 @@ public class PlayerController : MonoBehaviour
         sfxAudioSrc = GetComponent<AudioSource>();
 
         _currentHealth = health.GetCurrentHealth();
-        Debug.Log("_currentHealth = " + _currentHealth);
+        //Debug.Log("_currentHealth = " + _currentHealth);
         _healthbar.UpdateHealthBar(health.maxHealth, _currentHealth);
 
         //Subscribe to the health changed event
         health.HealthChanged += OnHealthChanged;
 
+        playerHud = GameObject.FindObjectOfType<PlayerHud>();
+        playerData = GameManager.instance.playerData;
+        playerHud.UpdateLevel(playerData.currentLevel);
+        playerHud.UpdateExperienceBar(playerData.currentExperience, playerData.experienceToNextLevel);
+        //levelingSystem = GameObject.FindObjectOfType<LevelingSystem>();
 
         // Ensure weaponManager is assigned
         if (weaponManager == null)
@@ -56,7 +73,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //currentWeapon = GetComponent<Sniper>(); // Assuming the Sniper script is on the same GameObject
+        //TEMP
+        //deathMenuUI.SetActive(false);
+        
     }
     private void OnDestroy()
     {
@@ -78,11 +97,21 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("isDead");
         //TODO: Trigger death menu
+        sfxAudioSrc.clip = deathSoundClip;
+        sfxAudioSrc.Play();
+
+        //Show death menu
+        //deathMenuUI.SetActive(true);
+        GameManager.instance.PlayerDied();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.IsGamePaused())
+            return;
+
         //Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -122,9 +151,6 @@ public class PlayerController : MonoBehaviour
 
         // Movement
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-
-        // Rotate the gun towards the mouse
-        //RotateGunTowardsMouse();
     }
 
     private IEnumerator Dash()
@@ -134,7 +160,6 @@ public class PlayerController : MonoBehaviour
 
         // Play dash sound
         sfxAudioSrc.PlayOneShot(dashAudioClip);
-
 
         float startTime = Time.time;
 
@@ -146,29 +171,52 @@ public class PlayerController : MonoBehaviour
 
         // After dash ends, smoothly reset velocity
         rb.velocity = Vector2.zero;
-
-        Debug.Log("I'm dashing");
-
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void PlayHurtEffects()
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (canPlayHurtSound)
         {
-            health.TakeDamage(damageTakenOnCollision);
-            StartCoroutine(TriggerHurtAnimation());
-
-
-            Debug.Log("Player collided with an enemy!");
+            PlayHurtSound();
+            StartCoroutine(HurtSoundCooldown());
         }
+        StartCoroutine(TriggerHurtAnimation());
     }
-
+    private void PlayHurtSound()
+    {
+        if(hurtSoundsClip.Length == 0)
+        {
+            return; // No sounds to play
+        }
+        //Play current hurt sound
+        sfxAudioSrc.PlayOneShot(hurtSoundsClip[currentHurtSoundIndex]);
+        //Update index to next hurt sound, wrapping around if necessary
+        currentHurtSoundIndex = (currentHurtSoundIndex + 1) % hurtSoundsClip.Length;
+    }
+    private IEnumerator HurtSoundCooldown()
+    {
+        canPlayHurtSound = false;
+        yield return new WaitForSeconds(hurtSoundCooldown);
+        canPlayHurtSound = true;
+    }
     private IEnumerator TriggerHurtAnimation()
     {
         animator.SetBool("isHurt", true);
         yield return new WaitForSeconds(0.25f);
         animator.SetBool("isHurt", false);
+    }
+    //If collide with pickup tag, call the collected function
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Pickup"))
+        {
+            PickUp pickup = collision.gameObject.GetComponent<PickUp>();
+            if(pickup != null)
+            {
+                pickup.Collected();
+            }
+        }
     }
 }

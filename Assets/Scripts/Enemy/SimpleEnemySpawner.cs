@@ -7,12 +7,13 @@ public class SimpleEnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab; // The enemy prefab to spawn
     public Transform[] spawnPoints; // Array of spawn points
-    public float spawnInterval = 5f; // Time between spawns
-    public int maxEnemiesPerWave = 10; // Maximum number of enemies to spawn per wave
-    public float waveInterval = 20f; // Time between waves
-    public int waveCount = 1; // Initial wave count
+    [SerializeField] private float spawnInterval = 5f; // Time between spawns
+    [SerializeField] private int maxEnemiesPerWave = 10; // Maximum number of enemies to spawn per wave
+    [SerializeField] private float waveInterval = 20f; // Time between waves
+    [SerializeField] private int waveCount = 1; // Initial wave count
 
     private int currentEnemyCount = 0; // Counter for the number of spawned enemies
+    private int remainingEnemies;
 
     // References to TextMeshProUGUI components
     public TextMeshProUGUI waveCountText;
@@ -27,7 +28,7 @@ public class SimpleEnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnWaves()
     {
-        while (true) // Run indefinitely, or set a condition to stop if needed
+        while (!GameManager.instance.IsGamePaused()) // Run indefinitely, or set a condition to stop if needed
         {
             // Check if the player is alive before starting a new wave
             if (!GameManager.instance.IsPlayerAlive())
@@ -37,6 +38,7 @@ public class SimpleEnemySpawner : MonoBehaviour
             }
 
             Debug.Log("Wave " + waveCount + " starting...");
+            remainingEnemies = maxEnemiesPerWave;
 
             // Spawn enemies for the current wave
             yield return StartCoroutine(SpawnEnemies());
@@ -66,7 +68,7 @@ public class SimpleEnemySpawner : MonoBehaviour
         currentEnemyCount = 0;
         UpdateEnemyCountText();
 
-        while (currentEnemyCount < maxEnemiesPerWave)
+        for (int i = 0; i < maxEnemiesPerWave; i++)
         {
             // Wait for the specified interval
             yield return new WaitForSeconds(spawnInterval);
@@ -75,14 +77,14 @@ public class SimpleEnemySpawner : MonoBehaviour
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
             // Instantiate the enemy at the chosen spawn point
-            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
-            //// Initialize the enemy with a reference to this spawner
-            //SimpleEnemyAI enemyScript = enemy.GetComponent<SimpleEnemyAI>();
-            //if (enemyScript != null)
-            //{
-            //    enemyScript.Initialize(this);
-            //}
+            // Initialize the enemy with a reference to this spawner
+            SimpleEnemyAI enemyScript = enemy.GetComponent<SimpleEnemyAI>();
+            if (enemyScript != null)
+            {
+                enemyScript.Initialize(this);
+            }
 
             // Increase the enemy count
             currentEnemyCount++;
@@ -93,6 +95,7 @@ public class SimpleEnemySpawner : MonoBehaviour
     public void DecreaseEnemyCount()
     {
         currentEnemyCount--;
+        remainingEnemies--;
         UpdateEnemyCountText();
     }
 
@@ -108,7 +111,7 @@ public class SimpleEnemySpawner : MonoBehaviour
     {
         if (enemyCountText != null)
         {
-            enemyCountText.text = "Enemies: " + currentEnemyCount + " / " + maxEnemiesPerWave;
+            enemyCountText.text = "Enemies: " + remainingEnemies;
         }
     }
 }

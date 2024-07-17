@@ -18,14 +18,13 @@ public abstract class Weapon : MonoBehaviour
             OnAmmoChanged = new UnityEvent();
         }
     }
-
-    public int CurrentAmmo { get; protected set; } // Current ammo in the magazine
-    public int ReserveAmmo { get; protected set; } // Total reserve ammo
-
     private void Start()
     {
         InitializeWeapon();
     }
+
+    public int CurrentAmmo { get; protected set; } // Current ammo in the magazine
+    public int ReserveAmmo { get; protected set; } // Total reserve ammo
 
     private void InitializeWeapon()
     {

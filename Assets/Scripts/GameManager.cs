@@ -8,10 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private bool isPlayerAlive = true;
-    //private bool isGamePaused = false;
-    public int totalMoney = 0;
-    public int totalExperience = 0;
-    public int totalFragments = 0;
+    private bool isGamePaused = false;
+
+    public PlayerData playerData; //Ref to scriptable obj
 
     private void Awake()
     {
@@ -33,24 +32,15 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         isPlayerAlive = false;
+        isGamePaused = true;
         // Show death menu
-        //FindObjectOfType<DeathMenu>().ShowDeathMenu();
-    }
+        //Show death menu
+        //DeathMenu deathMenu = FindObjectOfType<DeathMenu>();
+        //deathMenu.ShowDeathMenu(playerData.enemiesKilled, playerData.totalMoney, playerData.totalFragments);
 
-    public void AddMoney(int amount)
-    {
-        totalMoney += amount;
-        Debug.Log("Money added: " + amount);
-    }
-    public void AddExperience(int amount)
-    {
-        totalExperience += amount;
-        Debug.Log("Experience added: " + amount);
-    }
-    public void AddFragments(int amount)
-    {
-        totalFragments += amount;
-        Debug.Log("Fragments added: " + amount);
+        DeathMenu deathMenu = FindObjectOfType<DeathMenu>();
+        deathMenu.ReturnToMainMenu();
+
     }
     public void Retry()
     {
@@ -64,7 +54,67 @@ public class GameManager : MonoBehaviour
         isPlayerAlive = true;
         //isGamePaused = false;
         Time.timeScale = 1f; // Resume the game
-        SceneManager.LoadScene("MainMenu"); // Load main menu scene, ensure you have a scene named "MainMenu"
+        SceneManager.LoadScene("MainMenu"); // Load main menu scene
     }
 
+    public void AddMoney(int amount)
+    {
+        playerData.AddMoney(amount);
+        UpdateHUD();
+    }
+    public void AddExperience(int amount)
+    {
+        playerData.AddExperience(amount);
+        UpdateHUD();
+    }
+
+    public void AddFragments(int amount)
+    {
+        playerData.AddFragments(amount);
+        UpdateHUD();
+    }
+    public void ResetPlayerStats()
+    {
+        playerData.currentExperience = 0;
+        playerData.totalMoney = 0;
+        playerData.enemiesKilled = 0;
+    }
+    public void EnemyKilled()
+    {
+        playerData.AddEnemyKilled();
+        UpdateHUD();
+    }
+
+    private void UpdateHUD()
+    {
+        PlayerHud playerHud = FindObjectOfType<PlayerHud>();
+        if (playerHud != null)
+        {
+            playerHud.UpdateExperienceBar(playerData.currentExperience, playerData.experienceToNextLevel);
+            playerHud.UpdateLevel(playerData.currentLevel);
+            playerHud.UpdateEnemiesKilled(playerData.enemiesKilled);
+            playerHud.UpdateMoney(playerData.totalMoney);
+            playerHud.UpdateFragments(playerData.totalFragments);
+        }
+    }
+    public void PauseGame()
+    {
+        if (isGamePaused) return;
+
+        Time.timeScale = 0f;
+        isGamePaused = true;
+        
+    }
+    public void ResumeGame()
+    {
+        if (!isGamePaused) return;
+
+        Time.timeScale = 1f;
+        isGamePaused = false;
+
+    }
+    public bool IsGamePaused()
+    {
+        return isGamePaused;
+    }
 }

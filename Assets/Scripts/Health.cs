@@ -34,6 +34,8 @@ public class Health : MonoBehaviour
         {
             // Notify subscribers about the health change
             HealthChanged?.Invoke(currentHealth, maxHealth);
+            if (gameObject.CompareTag("Player"))
+                GetComponent<PlayerController>().PlayHurtEffects();
         }
         Debug.Log(gameObject.name + " HP after taking dmg: " + currentHealth);
     }
@@ -67,5 +69,4 @@ public class Health : MonoBehaviour
     {
         return currentHealth;
     }
-
 }
