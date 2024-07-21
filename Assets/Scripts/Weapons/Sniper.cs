@@ -132,15 +132,16 @@ public class Sniper : RangedWeapon
 
         // Calculate the direction from the fire point to the target position
         Vector2 direction = (targetPosition - (Vector2)sniperFirePoint.position).normalized;
-
         // Instantiate the bullet at the fire point
         GameObject bullet = Instantiate(sniperBulletPrefab, sniperFirePoint.position, sniperFirePoint.rotation);
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        bulletScript.Initialize(sniperBulletSpeed, weaponData.damage);
+
 
         // Get the Rigidbody2D component of the bullet
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
         // Apply velocity to the bullet towards the target position
-        rb.velocity = direction * sniperBulletSpeed;
+        rb.velocity = direction * weaponData.bulletSpeed;
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2f);

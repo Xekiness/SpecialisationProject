@@ -33,26 +33,28 @@ public class GameManager : MonoBehaviour
     {
         isPlayerAlive = false;
         isGamePaused = true;
-        // Show death menu
-        //Show death menu
-        //DeathMenu deathMenu = FindObjectOfType<DeathMenu>();
-        //deathMenu.ShowDeathMenu(playerData.enemiesKilled, playerData.totalMoney, playerData.totalFragments);
+        Time.timeScale = 0f;
 
+        Cursor.visible = true;
         DeathMenu deathMenu = FindObjectOfType<DeathMenu>();
-        deathMenu.ReturnToMainMenu();
-
+        if (deathMenu != null)
+        {
+            deathMenu.ShowDeathMenu(playerData.enemiesKilled, playerData.totalMoney, playerData.totalFragments);
+        }
+        else
+        {
+            Debug.LogError("DeathMenu not found in the scene.");
+        }
     }
     public void Retry()
     {
         isPlayerAlive = true;
-        //isGamePaused = false;
         Time.timeScale = 1f; // Resume the game
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
     public void ReturnToMainMenu()
     {
         isPlayerAlive = true;
-        //isGamePaused = false;
         Time.timeScale = 1f; // Resume the game
         SceneManager.LoadScene("MainMenu"); // Load main menu scene
     }
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
         playerData.currentExperience = 0;
         playerData.totalMoney = 0;
         playerData.enemiesKilled = 0;
+        playerData.currentLevel = 0;
     }
     public void EnemyKilled()
     {
@@ -103,7 +106,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
         isGamePaused = true;
-        
+        Cursor.visible = true;   
     }
     public void ResumeGame()
     {
@@ -111,7 +114,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         isGamePaused = false;
-
+        Cursor.visible = false;
     }
     public bool IsGamePaused()
     {

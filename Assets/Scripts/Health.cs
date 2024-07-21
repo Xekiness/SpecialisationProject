@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -28,6 +29,7 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            HealthChanged?.Invoke(currentHealth, maxHealth);
             Die();
         }
         else
@@ -52,8 +54,6 @@ public class Health : MonoBehaviour
         {
             GameManager.instance.PlayerDied();
         }
-
-        //gameObject.SetActive(false);
 
         // Deactivate the GameObject after a delay
         StartCoroutine(DeactivateAfterDelay(4f)); 

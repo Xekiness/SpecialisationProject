@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Health;
 
@@ -41,10 +42,13 @@ public class PlayerController : MonoBehaviour
 
     private PlayerHud playerHud;
     private PlayerData playerData;
-    //private LevelingSystem levelingSystem;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    private Color originalColor;
 
-    //Temporary, redo the deathmenu later
-    //public GameObject deathMenuUI;
+    //private LevelingSystem levelingSystem;
+    
+    //Deathmenu
+    [SerializeField] private GameObject deathMenuUI;
 
     private void Start()
     {
@@ -54,7 +58,6 @@ public class PlayerController : MonoBehaviour
         sfxAudioSrc = GetComponent<AudioSource>();
 
         _currentHealth = health.GetCurrentHealth();
-        //Debug.Log("_currentHealth = " + _currentHealth);
         _healthbar.UpdateHealthBar(health.maxHealth, _currentHealth);
 
         //Subscribe to the health changed event
@@ -73,9 +76,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if(spriteRenderer != null) originalColor = spriteRenderer.color;
+        
         //TEMP
         //deathMenuUI.SetActive(false);
-        
+
     }
     private void OnDestroy()
     {
@@ -86,24 +91,42 @@ public class PlayerController : MonoBehaviour
     {
         _currentHealth = currentHealth;
         _healthbar.UpdateHealthBar(maxHealth, currentHealth);
+        FlashPlayerMaterial();
 
         if(currentHealth <= 0)
         {
             Die();
         }
     }
+    private void FlashPlayerMaterial()
+    {
+        if (spriteRenderer != null) StartCoroutine(FlashMaterialCoroutine());
+    }
+    private IEnumerator FlashMaterialCoroutine()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = originalColor;
+    }
 
     private void Die()
     {
         animator.SetTrigger("isDead");
-        //TODO: Trigger death menu
         sfxAudioSrc.clip = deathSoundClip;
         sfxAudioSrc.Play();
 
         //Show death menu
-        //deathMenuUI.SetActive(true);
-        GameManager.instance.PlayerDied();
+        DeathMenu deathMenu = FindObjectOfType<DeathMenu>();
+        if(deathMenu != null) 
+        {
+            deathMenu.ShowDeathMenu(playerData.enemiesKilled, playerData.totalMoney, playerData.totalFragments);
+        }
+        else
+        {
+            Debug.LogError("DeathMenu not found in the scene.");
+        }
 
+        GameManager.instance.PlayerDied();
     }
 
     // Update is called once per frame

@@ -122,8 +122,11 @@ public class Shotgun : RangedWeapon
         {
             Vector2 direction = GetRandomDirection();
             GameObject bullet = Instantiate(shotgunBulletPrefab, shotgunFirePoint.position, shotgunFirePoint.rotation);
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            bulletScript.Initialize(shotgunBulletSpeed, weaponData.damage);
+
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.velocity = direction * shotgunBulletSpeed;
+            rb.velocity = direction * weaponData.bulletSpeed;
             Destroy(bullet, 2f);
         }
 

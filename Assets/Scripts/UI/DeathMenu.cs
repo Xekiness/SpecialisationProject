@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DeathMenu : MonoBehaviour
 {
@@ -15,24 +16,23 @@ public class DeathMenu : MonoBehaviour
     private void Start()
     {
         deathMenuUI.SetActive(false);
-        mainMenuButton.onClick.AddListener(ReturnToMainMenu);
     }
 
     public void ShowDeathMenu(int enemyKills, int moneyCollected, int fragmentsCollected)
     {
         deathMenuUI.SetActive(true);
-
-        //Update text
-        enemyKillText.text = "Enemies Killed: " + enemyKills;
-        moneyCollectedText.text = "Money Collected: " + moneyCollected;
+        Cursor.visible = true;
+        enemyKillText.text = "Kills: " + enemyKills;
+        moneyCollectedText.text = "Money: " + moneyCollected;
         fragmentsCollectedText.text = "Fragments: " + fragmentsCollected;
-
-        GameManager.instance.PlayerDied();
+        Time.timeScale = 0f;
     }
     public void ReturnToMainMenu()
     {
         GameManager.instance.ResumeGame();
-        SceneController.instance.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu");
+        ResetPlayerStats();
+        Cursor.visible = true;
     }
     public void ResetPlayerStats()
     {

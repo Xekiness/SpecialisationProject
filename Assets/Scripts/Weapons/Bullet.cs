@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
     private float speed = 5f;
-    [SerializeField]
+    private int damage;
+
     private float lifeTime = 2f;
     private float lifeTimer;
 
-    public int damage = 10;
+    public void Initialize(float bulletSpeed, int bulletDamage)
+    {
+        speed = bulletSpeed;
+        damage = bulletDamage;
+    }
 
 
     void Start()
     {
-        //Destroy(gameObject, lifeTime); // Destroy bullet after a certain time to avoid clutter
-
         // Reset the timer whenever the bullet is activated
         lifeTimer = lifeTime;
-
         // Start the coroutine to deactivate the bullet after lifeTime seconds
         StartCoroutine(DeactivateAfterTime(lifeTime));
     }
 
     void Update()
     {
-        //transform.Translate(Vector2.up * speed * Time.deltaTime); // Move bullet upwards
-
         // Count down the timer and deactivate the bullet if it exceeds lifeTime
         lifeTimer -= Time.deltaTime;
         if (lifeTimer <= 0)
@@ -50,7 +49,6 @@ public class Bullet : MonoBehaviour
             // Destroy the bullet after hitting the enemy
             Destroy(gameObject);
         }
-        //gameObject.SetActive(false); // Deactivate the bullet on collision
     }
     private IEnumerator DeactivateAfterTime(float time)
     {
