@@ -54,9 +54,31 @@ public class WeaponManager : MonoBehaviour
 
     public void HandleWeaponSwitching()
     {
+        if (GameManager.instance.IsGamePaused())
+            return;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SwitchWeapon();
+        }
+
+        // Mouse scroll wheel switching
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            SwitchWeapon(1);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            SwitchWeapon(-1);
+        }
+
+        // Number keys for weapon switching
+        for (int i = 1; i <= Mathf.Min(weapons.Count, 9); i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i - 1))
+            {
+                EquipWeapon(i - 1);
+            }
         }
     }
 
@@ -98,7 +120,6 @@ public class WeaponManager : MonoBehaviour
     {
         if (GameManager.instance.IsGamePaused())
             return;
-
         if (weapons == null || weapons.Count == 0)
         {
             Debug.LogWarning("Cannot switch weapon, weapon list is empty.");
@@ -108,16 +129,35 @@ public class WeaponManager : MonoBehaviour
         int nextWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
         EquipWeapon(nextWeaponIndex);
     }
+    //Overloaded function for using scrollwheel to swap weapons.
+    private void SwitchWeapon(int direction)
+    {
+         if (weapons == null || weapons.Count == 0)
+        {
+            Debug.LogWarning("Cannot switch weapon, weapon list is empty.");
+            return;
+        }
+
+        currentWeaponIndex += direction;
+        if (currentWeaponIndex >= weapons.Count)
+        {
+            currentWeaponIndex = 0;
+        }
+        else if (currentWeaponIndex < 0)
+        {
+            currentWeaponIndex = weapons.Count - 1;
+        }
+
+        EquipWeapon(currentWeaponIndex);   
+    }
 
     private void UpdateAmmoCount()
     {
         if (ammoText != null && currentWeapon != null)
         {
             int currentAmmo = weapons[currentWeaponIndex].GetCurrentAmmo();
-            int reserveAmmo = weapons[currentWeaponIndex].ReserveAmmo;
-            //int reserveAmmo = currentWeapon.GetReserveAmmo();
-            ammoText.text = "Ammo: " + currentAmmo + "/" + reserveAmmo;
-            Debug.Log("UpdateAmmoCount called: " + currentAmmo + " / " + reserveAmmo);
+            ammoText.text = "Ammo: " + currentAmmo;
+            Debug.Log("WeaponManager - UpdateAmmoCount called: " + currentAmmo);
         }
         else
         {

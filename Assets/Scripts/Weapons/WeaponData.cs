@@ -11,10 +11,9 @@ public class WeaponData : ScriptableObject
     public WeaponRarity rarity;
 
     // These properties can be left null/0 for melee weapons and filled for ranged weapons
-    public int maxAmmo; //Only for ranged weapons
+    public int magazineSize; //Only for ranged weapons
     public GameObject bulletPrefab; // Only for ranged weapons
     public float bulletSpeed; // Only for ranged weapons
-
 }
 
 public enum WeaponRarity

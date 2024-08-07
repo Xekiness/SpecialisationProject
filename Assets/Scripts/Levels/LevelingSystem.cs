@@ -11,10 +11,16 @@ public class LevelingSystem : MonoBehaviour
     
     public delegate void LevelUpAction();
     public static event LevelUpAction OnLevelUp;
+    private void Start()
+    {
+        Debug.Log("LevelingSystem started.");
+    }
+
     public void AddExperience(int amount)
     {
         currentExperience += amount;
         totalExperience += amount;  
+        Debug.Log("Experience added. CurrentExperience: " + currentExperience);
         if(currentExperience >= experienceToNextLevel)
         {
             LevelUp();
@@ -26,14 +32,20 @@ public class LevelingSystem : MonoBehaviour
         currentLevel++;
         experienceToNextLevel = CalculateExperienceToNextLevel(currentLevel);
 
-        if(OnLevelUp != null)
-        {
-            OnLevelUp();
-        }
+        Debug.Log("Level Up! Current Level: " + currentLevel);
+
+        OnLevelUp?.Invoke();
     }
     private int CalculateExperienceToNextLevel(int level)
     {
         //Formula for increasing experience for next level
         return Mathf.FloorToInt(100 * Mathf.Pow(1.1f, level - 1));
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            LevelUp();
+        }
     }
 }

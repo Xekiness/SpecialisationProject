@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         GameManager.instance.ResumeGame();
         PauseAudioSources();
         GameIsPaused = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     private void Pause()
     {
@@ -49,6 +50,8 @@ public class PauseMenu : MonoBehaviour
         GameManager.instance.PauseGame();
         PauseAudioSources();
         GameIsPaused = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     private void PauseAudioSources()
     {
@@ -97,6 +100,8 @@ public class PauseMenu : MonoBehaviour
         {
             Debug.LogError("SceneController instance is not found.");
         }
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public void RestartGame()
     {

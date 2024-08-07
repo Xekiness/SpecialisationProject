@@ -8,15 +8,14 @@ public class Sniper : RangedWeapon
     [SerializeField] private GameObject sniperBulletPrefab;
     [SerializeField] private Transform sniperFirePoint;
     [SerializeField] private float sniperBulletSpeed = 15f;
-    [SerializeField] private int maxAmmo = 20;
     [SerializeField] private float fireRate = 0.5f;
-
-    Vector2 mousePos;
-
     private float nextFireTime = 0f;
     [SerializeField] private int currentAmmo;
-    [SerializeField] private int currentMagazineCount; // Current bullets in the magazine
+    private bool isReloading = false;
+    public float reloadTime = 2f;
     [SerializeField] private int magazineCapacity = 5; // Magazine capacity
+
+    Vector2 mousePos;
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip fireSound;
@@ -25,6 +24,7 @@ public class Sniper : RangedWeapon
     [SerializeField] private AudioClip sniperEquipSound;
 
     private AudioSource audioSource;
+    private Coroutine reloadCoroutine;
 
     private void Awake()
     {
@@ -38,14 +38,9 @@ public class Sniper : RangedWeapon
     }
     private void Start()
     {
-        currentMagazineCount = magazineCapacity; // Initialize magazine count
-        currentAmmo = maxAmmo; // Initialize total ammo
-
+        currentAmmo = magazineCapacity;
         audioSource = GetComponent<AudioSource>();
-
-        Debug.Log("Sniper Start - Current Magazine: " + currentMagazineCount + " / " + magazineCapacity);
-        Debug.Log("Sniper Start - Current Ammo: " + currentAmmo + " / " + maxAmmo);
-
+        Debug.Log("Sniper Start - Current Ammo: " + currentAmmo + " / " + magazineCapacity);
         // Trigger initial ammo update
         OnAmmoChanged.Invoke();
     }
@@ -56,6 +51,16 @@ public class Sniper : RangedWeapon
         {
             audioSource.PlayOneShot(sniperEquipSound);
         }
+    }
+    private void OnDisable()
+    {
+        // Stop reloading if the weapon is disabled
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
+        isReloading = false;
     }
 
     private void Update()
@@ -68,18 +73,18 @@ public class Sniper : RangedWeapon
         // Update mouse position
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        //Automatic reload when current ammo is 0
+        if(currentAmmo <= 0 && !isReloading)
+        {
+            reloadCoroutine = StartCoroutine(Reload());
+            return;
+        }
+
         // Check for user input to fire
         if (Input.GetButtonDown("Fire1"))
         {
             Attack(mousePos);
             Debug.Log("Weapon Sniper Script call shoot");
-        }
-
-        // Check for user input to reload
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-            Debug.Log("Weapon Sniper Script call reload");
         }
     }
 
@@ -107,11 +112,11 @@ public class Sniper : RangedWeapon
 
     public override void Attack(Vector2 targetPosition)
     {
-        if (Time.time < nextFireTime || currentMagazineCount <= 0)
+        if (Time.time < nextFireTime || currentAmmo <= 0)
             return;
 
 
-        if(currentMagazineCount <= 0)
+        if(currentAmmo <= 0)
         {
             //Play dry fire sound
             if(audioSource != null && dryFireSound != null)
@@ -135,7 +140,8 @@ public class Sniper : RangedWeapon
         // Instantiate the bullet at the fire point
         GameObject bullet = Instantiate(sniperBulletPrefab, sniperFirePoint.position, sniperFirePoint.rotation);
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.Initialize(sniperBulletSpeed, weaponData.damage);
+        //bulletScript.Initialize(sniperBulletSpeed, weaponData.damage);
+        bulletScript.Initialize(weaponData.bulletSpeed, weaponData.damage);
 
 
         // Get the Rigidbody2D component of the bullet
@@ -147,53 +153,31 @@ public class Sniper : RangedWeapon
         Destroy(bullet, 2f);
 
         // Decrease ammo count
-        currentMagazineCount--;
+        currentAmmo--;
 
-        Debug.Log("Sniper Attack - Current Ammo: " + currentMagazineCount + " / " + magazineCapacity);
+        Debug.Log("Sniper Attack - Current Ammo: " + currentAmmo + " / " + magazineCapacity);
 
         // Trigger ammo change event
         OnAmmoChanged.Invoke();
 
         Debug.DrawLine(sniperFirePoint.position, targetPosition, Color.red, 1f); // This will draw a red line for 1 second
     }
-
-    public override void Reload()
+    private IEnumerator Reload()
     {
-        if (currentMagazineCount < magazineCapacity) // Check if the magazine is not full
+        isReloading = true;
+        if (audioSource != null && reloadSound != null)
         {
-            // Play reload sound
-            if (audioSource != null && reloadSound != null)
-            {
-                audioSource.PlayOneShot(reloadSound);
-            }
-
-            // Calculate the available ammo that can be refilled into the magazine
-            int availableAmmo = Mathf.Min(magazineCapacity - currentMagazineCount, currentAmmo);
-
-            // Refill the magazine to its capacity or available ammo count
-            currentMagazineCount += availableAmmo;
-
-            // Reduce the total ammo count by the amount refilled into the magazine
-            currentAmmo -= availableAmmo;
-
-            Debug.Log("Reloading Sniper Rifle: " + currentMagazineCount + " / " + magazineCapacity);
-            Debug.Log("Current Ammo: " + currentAmmo + " / " + maxAmmo);
-
-            // Trigger ammo change event
-            OnAmmoChanged.Invoke();
+            audioSource.PlayOneShot(reloadSound);
         }
-    }
 
-    public int GetCurrentAmmo()
-    {
-        return currentMagazineCount;
+        yield return new WaitForSeconds(reloadTime);
+            
+        currentAmmo = magazineCapacity;
+        isReloading = false;
+        reloadCoroutine = null;
+        OnAmmoChanged.Invoke();
     }
-
-    public int GetMaxAmmo()
-    {
-        return maxAmmo;
-    }
-    public int GetReserveAmmo()
+    public override int GetCurrentAmmo()
     {
         return currentAmmo;
     }

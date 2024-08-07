@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  healthRegenRate: 0
 --- !u!114 &7531672760736022534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  meleeRange: 1.5
+  meleeRange: 2
   attackCooldown: 1
   enemyDamage: 10
   health: {fileID: 5263165587804417814}
@@ -224,7 +225,7 @@ MonoBehaviour:
   experiencePrefab: {fileID: 5714495723709279882, guid: 189c6d4489f56ee4cb4af4ced1c4a4a7, type: 3}
   fragmentPrefab: {fileID: 1226908572359189670, guid: da0cc358ba949df42bf17b2db5f3683b, type: 3}
   moneyDrop: 10
-  experienceDrop: 5
+  experienceDrop: 15
   fragmentDrop: 5
 --- !u!82 &-997375182422371297
 AudioSource:

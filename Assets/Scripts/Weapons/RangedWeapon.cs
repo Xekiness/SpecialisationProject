@@ -30,9 +30,4 @@ public class RangedWeapon : Weapon
     {
         return CurrentAmmo;
     }
-
-    public override int GetReserveAmmo()
-    {
-        return ReserveAmmo;
-    }
 }

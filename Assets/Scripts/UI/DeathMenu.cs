@@ -29,10 +29,11 @@ public class DeathMenu : MonoBehaviour
     }
     public void ReturnToMainMenu()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         GameManager.instance.ResumeGame();
         SceneManager.LoadScene("MainMenu");
         ResetPlayerStats();
-        Cursor.visible = true;
     }
     public void ResetPlayerStats()
     {

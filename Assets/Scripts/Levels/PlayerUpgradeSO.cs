@@ -9,7 +9,6 @@ public class PlayerUpgradeSO : ScriptableObject
     {
         MaxHealth,
         HealthRegen,
-        PickupRange,
         MovementSpeed,
         DashRange,
         DashCooldown

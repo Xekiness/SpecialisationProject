@@ -11,14 +11,15 @@ public class Shotgun : RangedWeapon
     [SerializeField] private float shotgunBulletSpeed = 10f;
     [SerializeField] private int pelletsPerShot = 5;
     [SerializeField] private float bulletSpreadAngle = 30f;
-    [SerializeField] private int maxAmmo = 25;
+    //[SerializeField] private int maxAmmo = 25;
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private int magazineCapacity = 5;
 
-
     private float nextFireTime = 0f;
     private int currentAmmo;
-    private int currentMagazineCount;
+    private bool isReloading = false;
+    public float reloadTime = 2f;
+    
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip fireSound;
@@ -27,6 +28,8 @@ public class Shotgun : RangedWeapon
     [SerializeField] private AudioClip shotgunPumpSound;
 
     private AudioSource audioSource;
+    private Coroutine reloadCoroutine;
+
     private void Awake()
     {
         // Initialize audio source in Awake
@@ -39,13 +42,11 @@ public class Shotgun : RangedWeapon
     }
     private void Start()
     {
-        currentMagazineCount = magazineCapacity;
-        currentAmmo = maxAmmo;
+        currentAmmo = magazineCapacity;
 
         audioSource = GetComponent<AudioSource>();
 
-        Debug.Log("Shotgun Start - Current Magazine: " + currentMagazineCount + " / " + magazineCapacity);
-        Debug.Log("Shotgun Start - Current Ammo: " + currentAmmo + " / " + maxAmmo);
+        Debug.Log("Shotgun Start - Current Ammo: " + currentAmmo + " / " + magazineCapacity);
 
         OnAmmoChanged.Invoke(); 
     }
@@ -56,6 +57,16 @@ public class Shotgun : RangedWeapon
         {
             audioSource.PlayOneShot(shotgunPumpSound);
         }
+    }
+    private void OnDisable()
+    {
+        // Stop reloading if the weapon is disabled
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
+        isReloading = false;
     }
 
     private void Update()
@@ -71,10 +82,14 @@ public class Shotgun : RangedWeapon
             Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        //Automatic reload when current ammo is 0
+        if(currentAmmo <= 0 && !isReloading)
         {
+            //StartCoroutine(Reload());
             Reload();
+            return;
         }
+
     }
 
     private void RotateTowardsMouse(Vector3 mousePosition)
@@ -97,10 +112,10 @@ public class Shotgun : RangedWeapon
     }
     public override void Attack(Vector2 targetPosition)
     {
-        if (Time.time < nextFireTime || currentMagazineCount <= 0)
+        if (Time.time < nextFireTime || currentAmmo <= 0)
             return;
 
-        if (currentMagazineCount <= 0)
+        if (currentAmmo <= 0)
         {
             //Play dry fire sound
             if (audioSource != null && dryFireSound != null)
@@ -123,14 +138,15 @@ public class Shotgun : RangedWeapon
             Vector2 direction = GetRandomDirection();
             GameObject bullet = Instantiate(shotgunBulletPrefab, shotgunFirePoint.position, shotgunFirePoint.rotation);
             Bullet bulletScript = bullet.GetComponent<Bullet>();
-            bulletScript.Initialize(shotgunBulletSpeed, weaponData.damage);
+            //bulletScript.Initialize(shotgunBulletSpeed, weaponData.damage);
+            bulletScript.Initialize(weaponData.bulletSpeed, weaponData.damage);
 
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.velocity = direction * weaponData.bulletSpeed;
             Destroy(bullet, 2f);
         }
 
-        currentMagazineCount--;
+        currentAmmo--;
         OnAmmoChanged.Invoke();
     }
 
@@ -142,13 +158,19 @@ public class Shotgun : RangedWeapon
 
     public override void Reload()
     {
-        if (currentMagazineCount < magazineCapacity && currentAmmo > 0)
+        if (currentAmmo < magazineCapacity && !isReloading)
         {
+            if (audioSource != null && dryFireSound != null)
+            {
+                audioSource.PlayOneShot(dryFireSound);
+            }
             StartCoroutine(ReloadSequence());
         }
     }
     private IEnumerator ReloadSequence()
     {
+        isReloading = true;
+
         // Play reload sound
         if (audioSource != null && reloadSound != null)
         {
@@ -156,7 +178,11 @@ public class Shotgun : RangedWeapon
         }
 
         // Wait for the reload sound to finish before playing the pump sound
-        yield return new WaitForSeconds(reloadSound.length);
+        //yield return new WaitForSeconds(reloadSound.length);
+        yield return new WaitForSeconds(reloadTime);
+        //yield return new WaitForSeconds(WeaponData.)
+
+        currentAmmo = magazineCapacity;
 
         // Play shotgun pump sound
         if (audioSource != null && shotgunPumpSound != null)
@@ -165,26 +191,12 @@ public class Shotgun : RangedWeapon
         }
 
         // Update ammo counts
-        int availableAmmo = Mathf.Min(magazineCapacity - currentMagazineCount, currentAmmo);
-        currentMagazineCount += availableAmmo;
-        currentAmmo -= availableAmmo;
+        isReloading = false;
         OnAmmoChanged.Invoke(); 
     }
 
-    public int GetCurrentAmmo()
+    public override int GetCurrentAmmo()
     {
-        Debug.Log("Sniper GetCurrentAmmo: " + currentMagazineCount);
-        return currentMagazineCount;
-    }
-
-    public int GetMaxAmmo()
-    {
-        return maxAmmo;
-    }
-
-    public int GetReserveAmmo()
-    {
-        Debug.Log("Sniper GetReserveAmmo: " + currentAmmo);
         return currentAmmo;
     }
 }

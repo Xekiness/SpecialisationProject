@@ -30,11 +30,6 @@ public class MeleeWeapon : Weapon
         return CurrentAmmo;
     }
 
-    public override int GetReserveAmmo()
-    {
-        return ReserveAmmo;
-    }
-
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)

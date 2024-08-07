@@ -47,5 +47,6 @@ public class PlayerHud : MonoBehaviour
         LevelingSystem levelingSystem = GameObject.FindObjectOfType<LevelingSystem>();
         UpdateLevel(levelingSystem.currentLevel);
         UpdateExperienceBar(levelingSystem.currentExperience, levelingSystem.experienceToNextLevel);
+        //Show Level Up UI.
     }
 }

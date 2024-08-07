@@ -23,12 +23,15 @@ public class CursorManager : MonoBehaviour
         {
             crossHair.enabled = false;
             Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
             return;
         }
         else //if not paused
         {
             crossHair.enabled = true;
-            Cursor.visible = false; 
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         Vector2 cursorPos = Input.mousePosition;

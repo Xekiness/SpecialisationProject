@@ -6,7 +6,7 @@ using static Health;
 public class SimpleEnemyAI : MonoBehaviour
 {
     [SerializeField] private float speed = 2f;
-    [SerializeField] private float meleeRange = 1.75f;
+    [SerializeField] private float meleeRange = 2.0f;
     [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private int enemyDamage = 10;
     private Transform player;
@@ -29,7 +29,7 @@ public class SimpleEnemyAI : MonoBehaviour
     public GameObject experiencePrefab;
     public GameObject fragmentPrefab;
     public int moneyDrop = 10;
-    public int experienceDrop = 5;
+    public int experienceDrop = 15;
     public int fragmentDrop = 1;
 
     private bool isDying = false;

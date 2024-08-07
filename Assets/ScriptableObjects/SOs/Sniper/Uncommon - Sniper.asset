@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Uncommon - Sniper
   m_EditorClassIdentifier: 
   weaponName: Uncommon - Sniper
-  damage: 45
+  damage: 100
   fireRate: 0.75
-  maxAmmo: 30
-  bulletPrefab: {fileID: 3187102747224441019, guid: 22930c4e66c9c8841be389b3e482e441, type: 3}
-  bulletSpeed: 17.5
   rarity: 1
+  magazineSize: 0
+  bulletPrefab: {fileID: 3187102747224441019, guid: 22930c4e66c9c8841be389b3e482e441, type: 3}
+  bulletSpeed: 25

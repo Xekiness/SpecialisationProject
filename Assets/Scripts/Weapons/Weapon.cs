@@ -24,15 +24,13 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public int CurrentAmmo { get; protected set; } // Current ammo in the magazine
-    public int ReserveAmmo { get; protected set; } // Total reserve ammo
 
     private void InitializeWeapon()
     {
         // Only initialize ammo if maxAmmo is set (for ranged weapons)
-        if (weaponData.maxAmmo > 0)
+        if (weaponData.magazineSize > 0)
         {
-            CurrentAmmo = weaponData.maxAmmo; // Initialize magazine count
-            ReserveAmmo = weaponData.maxAmmo; // Initialize total ammo
+            CurrentAmmo = weaponData.magazineSize; // Initialize magazine count
         }
 
         // Trigger initial ammo update
@@ -55,18 +53,22 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void Reload()
     {
-        if (weaponData.maxAmmo > 0 && CurrentAmmo < weaponData.maxAmmo && ReserveAmmo > 0)
+        if (weaponData.magazineSize > 0 && CurrentAmmo < weaponData.magazineSize)
         {
-            int neededAmmo = weaponData.maxAmmo - CurrentAmmo;
-            int ammoToReload = Mathf.Min(neededAmmo, ReserveAmmo);
+            CurrentAmmo += weaponData.magazineSize;
 
-            CurrentAmmo += ammoToReload;
-            ReserveAmmo -= ammoToReload;
+            //int neededAmmo = weaponData.maxAmmo - CurrentAmmo;
+            //int ammoToReload = Mathf.Min(neededAmmo, ReserveAmmo);
+            //CurrentAmmo += ammoToReload;
+            //ReserveAmmo -= ammoToReload;
 
             // Trigger ammo change event
             OnAmmoChanged.Invoke();
         }
     }
     public abstract int GetCurrentAmmo();
-    public abstract int GetReserveAmmo();
+    //public virtual void GetCurrentAmmo()
+    //{
+    //    return 
+    //}
 }

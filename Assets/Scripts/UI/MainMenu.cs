@@ -11,7 +11,14 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         settingsPanelUI.SetActive(false);
-        howToPlayPanelUI.SetActive(false);  
+        if (howToPlayPanelUI != null)
+        {
+            howToPlayPanelUI.SetActive(false); // Ensure it's inactive by default
+        }
+        howToPlayPanelUI.SetActive(false);
+        // Reset cursor state
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public void ShowSettingsPanel()
     {

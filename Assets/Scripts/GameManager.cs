@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         DeathMenu deathMenu = FindObjectOfType<DeathMenu>();
         if (deathMenu != null)
         {
@@ -50,12 +51,16 @@ public class GameManager : MonoBehaviour
     {
         isPlayerAlive = true;
         Time.timeScale = 1f; // Resume the game
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
     public void ReturnToMainMenu()
     {
         isPlayerAlive = true;
         Time.timeScale = 1f; // Resume the game
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MainMenu"); // Load main menu scene
     }
 
@@ -106,7 +111,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
         isGamePaused = true;
-        Cursor.visible = true;   
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public void ResumeGame()
     {
@@ -115,6 +121,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isGamePaused = false;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     public bool IsGamePaused()
     {

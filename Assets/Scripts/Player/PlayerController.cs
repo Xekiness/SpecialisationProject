@@ -4,13 +4,16 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Health;
+using static PlayerUpgradeSO;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float dashSpeed = 10f;
-    [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private PlayerStats playerStats;
+
+    //[SerializeField] private float moveSpeed = 5f;
+    //[SerializeField] private float dashSpeed = 10f;
+    //[SerializeField] private float dashDuration = 0.2f;
+    //[SerializeField] private float dashCooldown = 1f;
 
     private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -45,8 +48,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Color originalColor;
 
-    //private LevelingSystem levelingSystem;
-    
     //Deathmenu
     [SerializeField] private GameObject deathMenuUI;
 
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
     {
         _currentHealth = currentHealth;
         _healthbar.UpdateHealthBar(maxHealth, currentHealth);
-        FlashPlayerMaterial();
+        //FlashPlayerMaterial();
 
         if(currentHealth <= 0)
         {
@@ -173,7 +174,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // Movement
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * playerStats.moveSpeed * Time.fixedDeltaTime);
     }
 
     private IEnumerator Dash()
@@ -186,17 +188,28 @@ public class PlayerController : MonoBehaviour
 
         float startTime = Time.time;
 
-        while (Time.time < startTime + dashDuration)
+        while (Time.time < startTime + playerStats.dashDuration)
         {
-            rb.velocity = movement.normalized * dashSpeed;
+            rb.velocity = movement.normalized * playerStats.dashSpeed;
             yield return null;
         }
 
-        // After dash ends, smoothly reset velocity
         rb.velocity = Vector2.zero;
         isDashing = false;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(playerStats.dashCooldown);
         canDash = true;
+
+        //while (Time.time < startTime + dashDuration)
+        //{
+        //    rb.velocity = movement.normalized * dashSpeed;
+        //    yield return null;
+        //}
+
+        //// After dash ends, smoothly reset velocity
+        //rb.velocity = Vector2.zero;
+        //isDashing = false;
+        //yield return new WaitForSeconds(dashCooldown);
+        //canDash = true;
     }
     public void PlayHurtEffects()
     {
@@ -240,6 +253,20 @@ public class PlayerController : MonoBehaviour
             {
                 pickup.Collected();
             }
+        }
+    }
+    public void ApplyUpgrade(PlayerUpgradeSO upgrade)
+    {
+        playerStats.ApplyUpgrade(upgrade);
+        health.SetMaxHealth(playerStats.maxHealth);
+        if (upgrade.upgradeType == UpgradeType.MaxHealth)
+        {
+            health.Heal(Mathf.RoundToInt(upgrade.effectStrength));  // Ensure healing amount is an integer
+        }
+        if (upgrade.upgradeType == UpgradeType.HealthRegen)
+        {
+            // Increase health regen rate in the health script.
+            health.ApplyUpgrade(upgrade);
         }
     }
 }
